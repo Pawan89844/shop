@@ -13,6 +13,7 @@ class AppString {
   static const String showAllText = 'Show All';
   static const String inStockText = 'In Stock';
   static const String descriptionText = 'Product Description';
+  static const String checkoutText = 'Checkout';
 
   /// Bottom Tabs Text
   static const String home = 'Home';
