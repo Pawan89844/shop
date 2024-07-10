@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
 import 'package:shop/module/home/view/product%20details/product_image.dart';
@@ -26,9 +24,39 @@ class ProductDetails extends StatelessWidget {
       actions: actions,
     );
 
+    final bottomNavBar = Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      height: 80.0,
+      child: Row(
+        children: [
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppBoldText('\$50.00'),
+              SizedBox(height: 3.0),
+              AppText(AppString.priceText),
+            ],
+          ),
+          const Spacer(),
+          ElevatedButton(
+            onPressed: () {},
+            style:
+                ElevatedButton.styleFrom(backgroundColor: AppColor.buttonColor),
+            child: const AppText(
+              AppString.addToCartText,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
+    );
+
     return Scaffold(
       appBar: appBar,
+      bottomNavigationBar: bottomNavBar,
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           SizedBox(
             height: query.size.height * .5,
@@ -97,7 +125,77 @@ class ProductDetails extends StatelessWidget {
                 ),
               )
             ],
-          )
+          ),
+          const SizedBox(height: 20.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const AppBoldText(AppString.colorText, fontSize: 20.0),
+                    const SizedBox(height: 10.0),
+                    Row(
+                      children: List.generate(
+                          4,
+                          (index) => Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: CircleAvatar(
+                                  radius: 12.0,
+                                  backgroundColor: Colors.primaries[
+                                      math.Random()
+                                          .nextInt(Colors.primaries.length)],
+                                ),
+                              )),
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(width: 10.0),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const AppBoldText(AppString.sizesText),
+                  const SizedBox(height: 10.0),
+                  Row(
+                    children: List.generate(
+                        4,
+                        (i) => const Padding(
+                              padding: EdgeInsets.all(5.0),
+                              child: CircleAvatar(
+                                backgroundColor: Color(0xFFE9E9E9),
+                                radius: 12.0,
+                                child: AppText('S'),
+                              ),
+                            )),
+                  )
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 10.0),
+          // PRODUCT INFO
+          const Padding(
+            padding: EdgeInsets.only(left: 14.0),
+            child: ListTile(
+              title: Padding(
+                padding: EdgeInsets.only(bottom: 5.0, top: 8.0),
+                child: AppBoldText(AppString.descriptionText, fontSize: 20.0),
+              ),
+              subtitle: Padding(
+                padding: EdgeInsets.all(6.0),
+                child: AppText(
+                  AppString.dummyDescription,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              isThreeLine: true,
+            ),
+          ),
         ],
       ),
     );
