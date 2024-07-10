@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
+import 'package:shop/module/home/view/components/products_grid.dart';
 import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 import 'package:shop/widgets/app_text_field.dart';
@@ -102,18 +103,7 @@ class HomeView extends StatelessWidget {
                       // mainAxisExtent: 1.0,
                       ),
                   itemCount: 4,
-                  itemBuilder: (context, i) => GridTile(
-                      // header: const Icon(Icons.person, size: 150.0),
-                      footer: Container(
-                          alignment: Alignment.center,
-                          margin: const EdgeInsets.only(bottom: 8.0),
-                          child: AppText('Sample $i')),
-                      child: Container(
-                        height: 300.0,
-                        decoration: BoxDecoration(
-                            color: Colors.primaries[math.Random()
-                                .nextInt(Colors.primaries.length)]),
-                      )),
+                  itemBuilder: (context, i) => ProductGrid(i: i),
                 ),
               )
             ],
