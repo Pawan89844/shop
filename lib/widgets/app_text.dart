@@ -6,16 +6,25 @@ class AppText extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? fontSize;
   final TextAlign? textAlign;
+  final TextDecoration? decoration;
   const AppText(this.data,
-      {super.key, this.color, this.fontSize, this.fontWeight, this.textAlign});
+      {super.key,
+      this.color,
+      this.fontSize,
+      this.fontWeight,
+      this.textAlign,
+      this.decoration});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       data,
       textAlign: textAlign,
-      style:
-          TextStyle(color: color, fontSize: fontSize, fontWeight: fontWeight),
+      style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          decoration: decoration),
     );
   }
 }
