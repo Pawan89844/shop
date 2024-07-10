@@ -88,34 +88,32 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 400.0,
+                height: MediaQuery.of(context).size.height * .5,
                 child: GridView.builder(
                   padding: const EdgeInsets.all(12.0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   primary: false,
+                  scrollDirection: Axis.vertical,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 16 / 9,
                       crossAxisSpacing: 10.0,
-                      mainAxisExtent: 10.0),
+                      mainAxisSpacing: 10.0
+                      // mainAxisExtent: 1.0,
+                      ),
                   itemCount: 4,
-                  itemBuilder: (context, index) => Column(
-                    children: [
-                      Container(
-                        height: 100.0,
-                        width: double.infinity,
+                  itemBuilder: (context, i) => GridTile(
+                      // header: const Icon(Icons.person, size: 150.0),
+                      footer: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.only(bottom: 8.0),
+                          child: AppText('Sample $i')),
+                      child: Container(
+                        height: 300.0,
                         decoration: BoxDecoration(
                             color: Colors.primaries[math.Random()
                                 .nextInt(Colors.primaries.length)]),
-                      ),
-                      Container(
-                        height: 100.0,
-                        width: double.infinity,
-                        color: Colors.amber,
-                      )
-                    ],
-                  ),
+                      )),
                 ),
               )
             ],
