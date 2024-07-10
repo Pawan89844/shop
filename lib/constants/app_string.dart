@@ -11,6 +11,7 @@ class AppString {
   static const String reviewText = 'Review';
   static const String itemsText = 'Items';
   static const String showAllText = 'Show All';
+  static const String inStockText = 'In Stock';
 
   /// Bottom Tabs Text
   static const String home = 'Home';
@@ -25,4 +26,5 @@ class AppString {
 
   /// Pages Name
   static const String cartPage = 'Cart';
+  static const String productDetailsPage = 'Product Details';
 }
