@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view/home_view.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
+import 'package:shop/module/profile/view/profile_view.dart';
 
 class Shop extends StatelessWidget {
   const Shop({super.key});
@@ -10,7 +12,7 @@ class Shop extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CartView(),
+      home: ProfileView(),
     );
   }
 }
