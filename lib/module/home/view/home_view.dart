@@ -25,11 +25,13 @@ class HomeView extends StatelessWidget {
     final suffix = IconButton(
         onPressed: () {}, icon: const Icon(Icons.search, size: 25.0));
 
+    final appBar = AppBar(
+      title: const AppText(AppString.appName),
+      actions: actions,
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const AppText(AppString.appName),
-        actions: actions,
-      ),
+      appBar: appBar,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [

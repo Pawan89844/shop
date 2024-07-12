@@ -4,7 +4,6 @@ import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view/home_view.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
 import 'package:shop/routes/app_routes.dart';
-import 'package:shop/routes/app_state.dart';
 
 class AppRouteDelegates extends RouterDelegate<AppRoutes>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutes> {
