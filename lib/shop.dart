@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
@@ -7,6 +9,7 @@ import 'package:shop/module/profile/view/profile_view.dart';
 import 'package:shop/routes/app_back_button_dispatcher.dart';
 import 'package:shop/routes/app_route_delegates.dart';
 import 'package:shop/routes/app_route_info_parser.dart';
+import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
 
 class Shop extends StatefulWidget {
@@ -22,9 +25,27 @@ class _ShopState extends State<Shop> {
   late AppBackButtonDispatcher backButtonDispatcher;
   final parser = AppRouteInformationParser();
 
+  late StreamSubscription linkStream;
+
   _ShopState() {
-    delegate = AppRouteDelegates(appState);
+    delegate = AppRouteDelegates();
+    delegate.setNewRoutePath(homePageConfig);
     backButtonDispatcher = AppBackButtonDispatcher(delegate);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initializePlatform();
+  }
+
+  void _initializePlatform() {
+    // delegate.
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

@@ -31,6 +31,7 @@ class HomeView extends StatelessWidget {
         actions: actions,
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           AppTextField(hintText: AppString.searchHintText, suffix: suffix),
           SizedBox(

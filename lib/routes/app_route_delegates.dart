@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view/home_view.dart';
@@ -9,17 +10,12 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutes> {
   final List<Page> _pages = [];
 
-  final AppState appState;
+  // final AppState appState;
 
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
-  AppRouteDelegates(this.appState)
-      : navigatorKey = GlobalKey<NavigatorState>() {
-    appState.addListener(() {
-      notifyListeners();
-    });
-  }
+  AppRouteDelegates() : navigatorKey = GlobalKey<NavigatorState>();
 
   List<MaterialPage> get pages => List.unmodifiable(_pages);
 
@@ -30,11 +26,22 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
 
   @override
   Widget build(BuildContext context) {
-    throw Navigator(
+    return Navigator(
       key: navigatorKey,
       onPopPage: _onPopPage,
+      pages: buildPage(),
       // initialRoute: '/${AppRoutes.home}',
     );
+  }
+
+  List<Page> buildPage() {
+    return List.of(_pages);
+  }
+
+  void parseRoute(Uri uri) {
+    if (uri.pathSegments.isEmpty) {
+      setNewRoutePath(homePageConfig);
+    }
   }
 
   bool _onPopPage(Route<dynamic> route, result) {
@@ -65,6 +72,46 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
       _removePage(pages.last);
     }
   }
+
+  void replace(AppRoutes route) {
+    if (_pages.isNotEmpty) {
+      _pages.removeLast();
+    }
+    addPage(route);
+  }
+
+  void setPath(List<MaterialPage> path) {
+    _pages.clear();
+    _pages.addAll(path);
+  }
+
+  void replaceAll(AppRoutes newRoute) {
+    setNewRoutePath(newRoute);
+  }
+
+  void push(AppRoutes newRoute) {
+    addPage(newRoute);
+  }
+
+  void pushWidget(Widget child, AppRoutes newRoute) {
+    _addPageData(child, newRoute);
+  }
+
+  void addAll(List<AppRoutes> routes) {
+    _pages.clear();
+    for (final route in routes) {
+      addPage(route);
+    }
+  }
+
+  // void _setPageAction(PageAction action){
+  //   switch (action.page?.page) {
+  //     case Pages.home:
+  //       homePageConfig.
+  //       break;
+  //     default:
+  //   }
+  // }
 
   MaterialPage _create(Widget child, AppRoutes route) {
     return MaterialPage(
@@ -107,7 +154,12 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
 
   @override
   Future<void> setNewRoutePath(AppRoutes configuration) {
-    // TODO: implement setNewRoutePath
-    throw UnimplementedError();
+    final shouldAddPage = _pages.isEmpty ||
+        (_pages.last.arguments as AppRoutes).page != configuration.page;
+    if (shouldAddPage) {
+      _pages.clear();
+      addPage(configuration);
+    }
+    return SynchronousFuture(null);
   }
 }
