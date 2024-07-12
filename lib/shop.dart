@@ -1,11 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:shop/module/cart/view/cart_view.dart';
-import 'package:shop/module/home/view/home_view.dart';
-import 'package:shop/module/home/view/product%20details/product_details.dart';
-import 'package:shop/module/profile/view/profile_view.dart';
 import 'package:shop/routes/app_back_button_dispatcher.dart';
 import 'package:shop/routes/app_route_delegates.dart';
 import 'package:shop/routes/app_route_info_parser.dart';
@@ -25,7 +18,7 @@ class _ShopState extends State<Shop> {
   late AppBackButtonDispatcher backButtonDispatcher;
   final parser = AppRouteInformationParser();
 
-  late StreamSubscription linkStream;
+  // late StreamSubscription linkStream;
 
   _ShopState() {
     delegate = AppRouteDelegates();
@@ -36,11 +29,6 @@ class _ShopState extends State<Shop> {
   @override
   void initState() {
     super.initState();
-    _initializePlatform();
-  }
-
-  void _initializePlatform() {
-    // delegate.
   }
 
   @override
