@@ -26,9 +26,15 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutes> {
 
   @override
   RouteInformation? restoreRouteInformation(AppRoutes configuration) {
-    // if(configuration == AppRoutes.home){
-    //   return RouteInformation(uri: Uri.);
-    // }
-    return RouteInformation();
+    switch (configuration.page) {
+      case Pages.home:
+        return RouteInformation(uri: Uri.parse(homePage));
+      case Pages.productDetails:
+        return RouteInformation(uri: Uri.parse(productDetailsPage));
+      case Pages.cart:
+        return RouteInformation(uri: Uri.parse(cartPage));
+      default:
+        return RouteInformation(uri: Uri.parse(homePage));
+    }
   }
 }
