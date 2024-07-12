@@ -7,9 +7,21 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutes> {
       RouteInformation routeInformation) async {
     final uri = routeInformation.uri;
     if (uri.pathSegments.isEmpty) {
-      return AppRoutes.home;
+      return homePageConfig;
     }
-    return AppRoutes.home;
+
+    final path = '/${uri.pathSegments[0]}';
+
+    switch (path) {
+      case homePage:
+        return homePageConfig;
+      case productDetailsPage:
+        return productDetailsConfig;
+      case cartPage:
+        return cartConfig;
+      default:
+        return homePageConfig;
+    }
   }
 
   @override
