@@ -131,7 +131,7 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
     if (shouldAddPage) {
       switch (route.page) {
         case Pages.home:
-          _addPageData(const HomeView(), route);
+          _addPageData(HomeView(), route);
           break;
         case Pages.productDetails:
           _addPageData(const ProductDetails(), route);
