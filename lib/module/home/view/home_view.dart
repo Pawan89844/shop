@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
+import 'package:shop/data/dummy/dummy_offers.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
 import 'package:shop/widgets/app_bold_text.dart';
@@ -11,7 +12,8 @@ import 'package:shop/widgets/app_text_field.dart';
 import 'dart:math' as math;
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  HomeView({super.key});
+  final offersCarousel = DummyOffers();
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +41,13 @@ class HomeView extends StatelessWidget {
           SizedBox(
             height: 200.0,
             child: ListView.builder(
-              itemCount: 6,
+              itemCount: offersCarousel.offers.length,
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.all(12.0),
-              itemBuilder: (context, index) => const ProductCarousel(),
+              itemBuilder: (context, i) =>
+                  ProductCarousel(offers: offersCarousel.offers[i]),
             ),
           ),
           Column(
