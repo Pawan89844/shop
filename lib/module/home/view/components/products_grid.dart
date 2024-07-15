@@ -1,25 +1,50 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:shop/data/dummy/dummy_products.dart';
 import 'package:shop/widgets/app_text.dart';
 
 class ProductGrid extends StatelessWidget {
   final int i;
-  const ProductGrid({super.key, required this.i});
+  ProductGrid({super.key, required this.i});
+  final products = DummyProducts();
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
-        // header: const Icon(Icons.person, size: 150.0),
-        footer: Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(bottom: 8.0),
-            child: AppText('Sample $i')),
-        child: Container(
-          height: 300.0,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              color: Colors
-                  .primaries[math.Random().nextInt(Colors.primaries.length)]),
-        ));
+    String product = products.products[i].tittle;
+    final image =
+        Image.network(products.products[i].productImage, isAntiAlias: true);
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 13.0 / 12.0,
+          child: Card(
+            surfaceTintColor: Colors.blue,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.0)),
+            elevation: 0.5,
+            child: image,
+          ),
+        ),
+        const SizedBox(height: 12.0),
+        Column(
+          children: [
+            Container(
+                alignment: Alignment.topCenter,
+                margin: const EdgeInsets.only(bottom: 8.0),
+                child: AppText(
+                  product,
+                  fontWeight: FontWeight.w400,
+                  textAlign: TextAlign.center,
+                  maxLine: 2,
+                ))
+          ],
+        )
+      ],
+    );
   }
 }
+
+// header: const Icon(Icons.person, size: 150.0),
+      // footer: Container(
+      //     alignment: Alignment.center,
+      //     margin: const EdgeInsets.only(bottom: 8.0),
+      //     child: AppText('Sample $i')),
