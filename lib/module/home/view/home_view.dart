@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
+import 'package:shop/data/dummy/dummy_categories.dart';
+import 'package:shop/data/dummy/dummy_offers.dart';
+import 'package:shop/data/dummy/dummy_products.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
 import 'package:shop/widgets/app_bold_text.dart';
@@ -11,7 +14,9 @@ import 'package:shop/widgets/app_text_field.dart';
 import 'dart:math' as math;
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  HomeView({super.key});
+  final offersCarousel = DummyOffers();
+  final collections = DummyCategories();
 
   @override
   Widget build(BuildContext context) {
@@ -25,23 +30,27 @@ class HomeView extends StatelessWidget {
     final suffix = IconButton(
         onPressed: () {}, icon: const Icon(Icons.search, size: 25.0));
 
+    final appBar = AppBar(
+      title: const AppText(AppString.appName),
+      actions: actions,
+    );
+
     return Scaffold(
-      appBar: AppBar(
-        title: const AppText(AppString.appName),
-        actions: actions,
-      ),
+      appBar: appBar,
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         children: [
           AppTextField(hintText: AppString.searchHintText, suffix: suffix),
           SizedBox(
             height: 200.0,
             child: ListView.builder(
-              itemCount: 6,
+              itemCount: offersCarousel.offers.length,
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.all(12.0),
-              itemBuilder: (context, index) => const ProductCarousel(),
+              itemBuilder: (context, i) =>
+                  ProductCarousel(offers: offersCarousel.offers[i]),
             ),
           ),
           Column(
@@ -62,15 +71,19 @@ class HomeView extends StatelessWidget {
                 padding: const EdgeInsets.all(14.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(
-                      5,
-                      (i) => const Column(
+                  children: collections.categories
+                      .map((item) => Column(
                             children: [
-                              CircleAvatar(radius: 30),
-                              SizedBox(height: 8.0),
-                              AppText('Hoodies', color: AppColor.boldTextColor),
+                              CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage:
+                                      NetworkImage(item.featuredImage)),
+                              const SizedBox(height: 8.0),
+                              AppText(item.title,
+                                  color: AppColor.boldTextColor),
                             ],
-                          )),
+                          ))
+                      .toList(),
                 ),
               )
             ],
@@ -89,20 +102,19 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * .5,
+                height: MediaQuery.of(context).size.height * .65,
                 child: GridView.builder(
                   padding: const EdgeInsets.all(12.0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   primary: false,
-                  scrollDirection: Axis.vertical,
+                  // scrollDirection: Axis.vertical,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0
-                      // mainAxisExtent: 1.0,
-                      ),
-                  itemCount: 4,
+                      mainAxisSpacing: 10.0,
+                      childAspectRatio: 6.6 / 9.0),
+                  itemCount: DummyProducts().products.length - 1,
                   itemBuilder: (context, i) => ProductGrid(i: i),
                 ),
               )
