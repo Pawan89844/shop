@@ -14,14 +14,6 @@ class AppRoutes {
   final Pages page;
 
   AppRoutes({required this.key, required this.path, required this.page});
-
-  // AppRoutes._(this.key);
-
-  // static AppRoutes home = AppRoutes._('home');
-  // static AppRoutes productDetails = AppRoutes._('product-details');
-  // static AppRoutes cart = AppRoutes._('cart');
-
-  // static const String productDetails = '/product-details';
 }
 
 AppRoutes homePageConfig =
