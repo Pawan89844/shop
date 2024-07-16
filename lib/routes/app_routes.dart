@@ -17,6 +17,7 @@ class AppRoutes {
   final Pages page;
   late PageAction? currentPageAction;
 
+
   AppRoutes(
       {required this.key,
       required this.path,
@@ -30,6 +31,7 @@ class AppRoutes {
   // static AppRoutes cart = AppRoutes._('cart');
 
   // static const String productDetails = '/product-details';
+
 }
 
 AppRoutes homePageConfig = AppRoutes(
