@@ -1,21 +1,28 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shop/constants/app_page.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view/home_view.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
 import 'package:shop/routes/app_routes.dart';
+import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_no_internet.dart';
 
 class AppRouteDelegates extends RouterDelegate<AppRoutes>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutes> {
   final List<Page> _pages = [];
 
-  // final AppState appState;
+  final AppState appState;
 
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
-  AppRouteDelegates() : navigatorKey = GlobalKey<NavigatorState>();
+  AppRouteDelegates(this.appState)
+      : navigatorKey = GlobalKey<NavigatorState>() {
+    appState.addListener(() {
+      notifyListeners();
+    });
+  }
 
   List<MaterialPage> get pages => List.unmodifiable(_pages);
 
@@ -35,12 +42,67 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
   }
 
   List<Page> buildPage() {
+    switch (appState.currentAction.state) {
+      case PageState.none:
+        break;
+      case PageState.addPage:
+        _setPageAction(appState.currentAction);
+        addPage(appState.currentAction.page as AppRoutes);
+        break;
+      case PageState.addAll:
+        _setPageAction(appState.currentAction);
+        addAll(appState.currentAction.page as List<AppRoutes>);
+        break;
+      case PageState.addWidget:
+        _setPageAction(appState.currentAction);
+        pushWidget(
+            appState.currentAction.widget!, appState.currentAction.page!);
+        break;
+      case PageState.pop:
+        pop();
+        break;
+      case PageState.replace:
+        // TODO: Handle this case.
+        break;
+      case PageState.replaceAll:
+        // TODO: Handle this case.
+        break;
+    }
+    appState.resetCurrentAction();
     return List.of(_pages);
+  }
+
+  void _setPageAction(PageAction action) {
+    switch (action.page?.page) {
+      case Pages.home:
+        homePageConfig.currentPageAction = action;
+        break;
+      case Pages.productDetails:
+        productDetailsConfig.currentPageAction = action;
+      case Pages.cart:
+        cartConfig.currentPageAction = action;
+      default:
+        break;
+    }
   }
 
   void parseRoute(Uri uri) {
     if (uri.pathSegments.isEmpty) {
       setNewRoutePath(homePageConfig);
+      return;
+    } else if (uri.pathSegments.length == 1) {
+      final path = uri.pathSegments[0];
+      switch (path) {
+        case AppPage.home:
+          replaceAll(homePageConfig);
+          break;
+        case AppPage.cart:
+          replaceAll(cartConfig);
+          break;
+        case AppPage.productDetails:
+          replaceAll(productDetailsConfig);
+          break;
+      }
     }
   }
 
