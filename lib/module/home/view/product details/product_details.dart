@@ -203,7 +203,7 @@ class ProductDetails extends StatelessWidget {
 }
 
 class _ProductTrailing extends StatelessWidget {
-  const _ProductTrailing({super.key});
+  const _ProductTrailing();
 
   @override
   Widget build(BuildContext context) {
