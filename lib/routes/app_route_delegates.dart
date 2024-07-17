@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/constants/app_page.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
+import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/home_view.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
 import 'package:shop/routes/app_routes.dart';
@@ -194,7 +196,12 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
     if (shouldAddPage) {
       switch (route.page) {
         case Pages.home:
-          _addPageData(HomeView(), route);
+          _addPageData(
+              ChangeNotifierProvider(
+                create: (context) => HomeViewModel(),
+                child: const HomeView(),
+              ),
+              route);
           break;
         case Pages.productDetails:
           _addPageData(const ProductDetails(), route);
