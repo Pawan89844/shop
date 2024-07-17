@@ -12,6 +12,7 @@ class AppString {
   static const String itemsText = 'Items';
   static const String showAllText = 'Show All';
   static const String inStockText = 'In Stock';
+  static const String stockOutText = 'Sold';
   static const String descriptionText = 'Product Description';
   static const String checkoutText = 'Checkout';
   static const String noInternetText =

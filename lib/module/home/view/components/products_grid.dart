@@ -19,10 +19,12 @@ class ProductGrid extends StatelessWidget {
         isAntiAlias: true);
     return InkWell(
       onTap: () {
+        appState.setProdId = provider.products.products[i].id;
         appState.currentAction = PageAction(
             state: PageState.addWidget,
             widget: ChangeNotifierProvider(
-              create: (__) => ProductDetailsViewModel(),
+              create: (__) => ProductDetailsViewModel()
+                ..getProductById(appState.prodId as int),
               child: const ProductDetails(),
             ),
             page: productDetailsConfig);
