@@ -48,9 +48,5 @@ class _ShopState extends State<Shop> {
         backButtonDispatcher: backButtonDispatcher,
       ),
     );
-    // return const MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   home: ProfileView(),
-    // );
   }
 }

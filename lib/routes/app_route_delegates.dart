@@ -33,9 +33,15 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
 
   @override
   Widget build(BuildContext context) {
+    print('Page: ${_pages.length}');
+    if (_pages.length >= 1) {
+      _pages.forEach((element) {
+        print('Elemets: ${element.name}');
+      });
+    }
     return Navigator(
       key: navigatorKey,
-      onPopPage: _onPopPage,
+      onPopPage: (route, result) => _onPopPage(route, result),
       pages: buildPage(),
       // initialRoute: '/${AppRoutes.home}',
     );
@@ -91,18 +97,18 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
       setNewRoutePath(homePageConfig);
       return;
     } else if (uri.pathSegments.length == 1) {
-      final path = uri.pathSegments[0];
-      switch (path) {
-        case AppPage.home:
-          replaceAll(homePageConfig);
-          break;
-        case AppPage.cart:
-          replaceAll(cartConfig);
-          break;
-        case AppPage.productDetails:
-          replaceAll(productDetailsConfig);
-          break;
-      }
+      // final path = uri.pathSegments[0];
+      // switch (path) {
+      //   case AppPage.home:
+      //     replaceAll(homePageConfig);
+      //     break;
+      //   case AppPage.cart:
+      //     replaceAll(cartConfig);
+      //     break;
+      //   case AppPage.productDetails:
+      //     replaceAll(productDetailsConfig);
+      //     break;
+      // }
     }
   }
 
@@ -166,15 +172,6 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
     }
   }
 
-  // void _setPageAction(PageAction action){
-  //   switch (action.page?.page) {
-  //     case Pages.home:
-  //       homePageConfig.
-  //       break;
-  //     default:
-  //   }
-  // }
-
   MaterialPage _create(Widget child, AppRoutes route) {
     return MaterialPage(
         child: child,
@@ -201,6 +198,7 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
         case Pages.cart:
           _addPageData(const CartView(), route);
         default:
+          break;
       }
     }
   }
