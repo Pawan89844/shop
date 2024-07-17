@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
 import 'package:shop/data/dummy/dummy_categories.dart';
 import 'package:shop/data/dummy/dummy_offers.dart';
 import 'package:shop/data/dummy/dummy_products.dart';
+import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
 import 'package:shop/widgets/app_bold_text.dart';
@@ -14,12 +15,14 @@ import 'package:shop/widgets/app_text_field.dart';
 import 'dart:math' as math;
 
 class HomeView extends StatelessWidget {
-  HomeView({super.key});
-  final offersCarousel = DummyOffers();
-  final collections = DummyCategories();
+  const HomeView({super.key});
+  // final offersCarousel = DummyOffers();
+  // final collections = DummyCategories();
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<HomeViewModel>(context, listen: false);
+
     final actions = [
       IconButton(
           onPressed: () {}, icon: const Icon(CupertinoIcons.qrcode_viewfinder)),
@@ -44,13 +47,13 @@ class HomeView extends StatelessWidget {
           SizedBox(
             height: 200.0,
             child: ListView.builder(
-              itemCount: offersCarousel.offers.length,
+              itemCount: provider.offersCarousel.offers.length,
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.all(12.0),
               itemBuilder: (context, i) =>
-                  ProductCarousel(offers: offersCarousel.offers[i]),
+                  ProductCarousel(offers: provider.offersCarousel.offers[i]),
             ),
           ),
           Column(
@@ -71,7 +74,7 @@ class HomeView extends StatelessWidget {
                 padding: const EdgeInsets.all(14.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: collections.categories
+                  children: provider.collections.categories
                       .map((item) => Column(
                             children: [
                               CircleAvatar(
@@ -114,7 +117,7 @@ class HomeView extends StatelessWidget {
                       crossAxisSpacing: 10.0,
                       mainAxisSpacing: 10.0,
                       childAspectRatio: 6.6 / 9.0),
-                  itemCount: DummyProducts().products.length - 1,
+                  itemCount: provider.products.products.length - 1,
                   itemBuilder: (context, i) => ProductGrid(i: i),
                 ),
               )

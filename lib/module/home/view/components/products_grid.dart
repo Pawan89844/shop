@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/data/dummy/dummy_products.dart';
+import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
@@ -8,20 +8,25 @@ import 'package:shop/widgets/app_text.dart';
 
 class ProductGrid extends StatelessWidget {
   final int i;
-  ProductGrid({super.key, required this.i});
-  final products = DummyProducts();
+  const ProductGrid({super.key, required this.i});
 
   @override
   Widget build(BuildContext context) {
     var appState = Provider.of<AppState>(context, listen: false);
-    String product = products.products[i].tittle;
-    final image =
-        Image.network(products.products[i].productImage, isAntiAlias: true);
+    var provider = Provider.of<HomeViewModel>(context);
+    String product = provider.products.products[i].tittle;
+    final image = Image.network(provider.products.products[i].productImage,
+        isAntiAlias: true);
     return InkWell(
-      onTap: () => appState.currentAction = PageAction(
-          state: PageState.addWidget,
-          widget: const ProductDetails(),
-          page: productDetailsConfig),
+      onTap: () {
+        appState.currentAction = PageAction(
+            state: PageState.addWidget,
+            widget: ChangeNotifierProvider(
+              create: (__) => ProductDetailsViewModel(),
+              child: const ProductDetails(),
+            ),
+            page: productDetailsConfig);
+      },
       child: Column(
         children: [
           AspectRatio(
