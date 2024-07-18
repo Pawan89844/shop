@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
+import 'package:shop/data/model/cart_model.dart';
+import 'package:shop/data/model/product_details_model.dart';
+import 'package:shop/module/cart/view%20model/cart_view_model.dart';
+import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/product%20details/product_image.dart';
+import 'package:shop/routes/app_routes.dart';
+import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 import 'dart:math' as math;
@@ -17,7 +23,9 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  Container _bottomNav(double price) {
+  Container _bottomNav(
+      ProductDetailsViewModel viewModel, CartViewModel cartState) {
+    ProductDetailsModel? product = viewModel.product;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20.0),
       height: 80.0,
@@ -27,18 +35,22 @@ class _ProductDetailsState extends State<ProductDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AppBoldText('\$$price'),
+              AppBoldText('\$${product?.productPrice}'),
               const SizedBox(height: 3.0),
               const AppText(AppString.priceText),
             ],
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () {},
-            style:
-                ElevatedButton.styleFrom(backgroundColor: AppColor.buttonColor),
-            child: const AppText(
-              AppString.addToCartText,
+            onPressed: () => viewModel.addToCart(cartState),
+            style: ElevatedButton.styleFrom(
+                backgroundColor: viewModel.isInCart(cartState.cartItems)
+                    ? Colors.green
+                    : AppColor.buttonColor),
+            child: AppText(
+              viewModel.isInCart(cartState.cartItems)
+                  ? AppString.goToCartText
+                  : AppString.addToCartText,
               color: Colors.white,
             ),
           )
@@ -50,10 +62,17 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context);
+    var appState = Provider.of<AppState>(context, listen: false);
+    var cartState = Provider.of<CartViewModel>(context);
 
     final actions = [
       IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.heart)),
-      IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.cart))
+      IconButton(
+          onPressed: () => appState.currentAction = PageAction(
+              state: PageState.addWidget,
+              page: cartConfig,
+              widget: const CartView()),
+          icon: const Icon(CupertinoIcons.cart))
     ];
 
     final appBar = AppBar(
@@ -68,8 +87,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         } else {
           return Scaffold(
             appBar: appBar,
-            bottomNavigationBar:
-                _bottomNav(viewModel.product?.productPrice as double),
+            bottomNavigationBar: _bottomNav(viewModel, cartState),
             body: ListView(
               physics: const BouncingScrollPhysics(),
               children: [

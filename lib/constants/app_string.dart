@@ -3,6 +3,7 @@ class AppString {
   static const String searchHintText = 'Search for products';
   static const String shopNowText = 'Shop Now';
   static const String addToCartText = 'Add to Cart';
+  static const String goToCartText = 'Go to Cart';
   static const String checkoutAllText = 'Checkout All';
   static const String colorText = 'Colors';
   static const String sizesText = 'Sizes';

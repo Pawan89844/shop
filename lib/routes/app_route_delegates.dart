@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_page.dart';
+import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/home_view.dart';

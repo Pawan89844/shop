@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/routes/app_back_button_dispatcher.dart';
 import 'package:shop/routes/app_route_delegates.dart';
 import 'package:shop/routes/app_route_info_parser.dart';
@@ -15,6 +16,7 @@ class Shop extends StatefulWidget {
 
 class _ShopState extends State<Shop> {
   final appState = AppState();
+  final cartState = CartViewModel();
   late AppRouteDelegates delegate;
   late AppBackButtonDispatcher backButtonDispatcher;
   final parser = AppRouteInformationParser();
@@ -39,8 +41,11 @@ class _ShopState extends State<Shop> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AppState>(
-      create: (_) => appState,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => appState),
+        ChangeNotifierProvider(create: (context) => cartState),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerDelegate: delegate,
