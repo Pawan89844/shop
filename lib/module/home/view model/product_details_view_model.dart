@@ -46,6 +46,13 @@ class ProductDetailsViewModel extends ChangeNotifier {
     if (!isIncrease && item?.itemQuantity as int >= 1) {
       item?.itemQuantity--;
     }
+    if (!isIncrease && item?.itemQuantity == 0) {
+      deleteCartItem(cart);
+    }
     notifyListeners();
+  }
+
+  void deleteCartItem(List<CartModel> cart) {
+    cart.removeWhere((item) => item.productId == product?.id);
   }
 }
