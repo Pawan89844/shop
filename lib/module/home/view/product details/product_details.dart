@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
@@ -130,36 +131,51 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ),
                     const Spacer(),
-                    Container(
-                      height: 40.0,
-                      width: 100.0,
-                      margin: const EdgeInsets.only(right: 30.0),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFF8F8F9),
-                          borderRadius: BorderRadius.circular(8.0)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: 40.0,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0)),
-                            alignment: Alignment.center,
-                            child: const Icon(Icons.remove),
-                          ),
-                          const AppText('1'),
-                          Container(
-                            width: 40.0,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0)),
-                            alignment: Alignment.center,
-                            child: const Icon(Icons.add),
-                          ),
-                        ],
+                    Visibility(
+                      visible: viewModel.isInCart(cartState.cartItems),
+                      child: Container(
+                        height: 40.0,
+                        width: 100.0,
+                        margin: const EdgeInsets.only(right: 30.0),
+                        decoration: BoxDecoration(
+                            color: const Color(0xFFF8F8F9),
+                            borderRadius: BorderRadius.circular(8.0)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () => viewModel.updateQuantity(
+                                  cartState.cartItems, false),
+                              child: Container(
+                                width: 40.0,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                alignment: Alignment.center,
+                                child: const Icon(Icons.remove),
+                              ),
+                            ),
+                            AppText(viewModel
+                                    .getCartItemByProductId(cartState.cartItems)
+                                    ?.itemQuantity
+                                    .toString() ??
+                                ''),
+                            GestureDetector(
+                              onTap: () => viewModel.updateQuantity(
+                                  cartState.cartItems, true),
+                              child: Container(
+                                width: 40.0,
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                alignment: Alignment.center,
+                                child: const Icon(Icons.add),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],

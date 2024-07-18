@@ -29,7 +29,23 @@ class ProductDetailsViewModel extends ChangeNotifier {
 
   bool isInCart(List<CartModel> cart) {
     final prod = cart.any((item) => item.productId == product?.id as int);
-    // notifyListeners();
     return prod;
+  }
+
+  CartModel? getCartItemByProductId(List<CartModel> cart) {
+    int index = cart.indexWhere((item) => item.productId == product?.id);
+    CartModel? item = index == -1 ? null : cart.elementAt(index);
+    return item;
+  }
+
+  void updateQuantity(List<CartModel> cart, bool isIncrease) {
+    final item = getCartItemByProductId(cart);
+    if (isIncrease) {
+      item?.itemQuantity++;
+    }
+    if (!isIncrease && item?.itemQuantity as int >= 1) {
+      item?.itemQuantity--;
+    }
+    notifyListeners();
   }
 }

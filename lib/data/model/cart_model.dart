@@ -5,7 +5,7 @@ class CartModel {
   final String? productImage;
   final String? productSize;
   final String? selectedColor;
-  final int? itemQuantity;
+  int itemQuantity;
   final double? productPrice;
 
   CartModel(
@@ -15,6 +15,6 @@ class CartModel {
       this.productImage,
       this.productSize,
       this.selectedColor,
-      this.itemQuantity,
+      this.itemQuantity = 1,
       this.productPrice});
 }
