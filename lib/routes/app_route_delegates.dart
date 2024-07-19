@@ -207,7 +207,7 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
         case Pages.productDetails:
           _addPageData(const ProductDetails(), route);
         case Pages.cart:
-          _addPageData(const CartView(), route);
+          _addPageData(CartView(), route);
         default:
       }
     }
