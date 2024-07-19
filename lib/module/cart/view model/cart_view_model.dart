@@ -11,6 +11,8 @@ class CartViewModel extends ChangeNotifier with CartOperationsMixin {
   List<CartModel> cartItems = <CartModel>[];
   final List<ProductDetailsModel> _pInfo = DummyProductDetails.details;
 
+  double get totalPrice => _totalPrice();
+
   // CartViewModel() {
   //   addListener(() {
   //     fetchCart();
@@ -36,6 +38,17 @@ class CartViewModel extends ChangeNotifier with CartOperationsMixin {
   void fetchCart() {
     if (cartItems.isNotEmpty) {
       getCartProducts();
+    }
+  }
+
+  double _totalPrice() {
+    if (cartItems.isEmpty) {
+      return 0.0;
+    } else {
+      return cartItems
+          .map((item) => item.itemQuantity * item.productPrice!)
+          .reduce((a, b) => a + b)
+          .toDouble();
     }
   }
 }
