@@ -28,7 +28,7 @@ class CartView extends StatelessWidget with _CartViewMixin {
             isEmpty: viewModel.cartItems.isEmpty,
             child: Scaffold(
               appBar: appBar,
-              bottomNavigationBar: bottomNavBar,
+              bottomNavigationBar: bottomNavBar(context),
               body: ListView(
                 primary: true,
                 shrinkWrap: true,
@@ -74,33 +74,40 @@ mixin class _CartViewMixin {
     const SizedBox(width: 8.0),
   ];
 
-  final bottomNavBar = Container(
-    margin: const EdgeInsets.symmetric(horizontal: 20.0),
-    height: 80.0,
-    child: Row(
+  Widget _bottomNavPriceSection(double totalPrice) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AppBoldText('\$250.00'),
-            SizedBox(height: 3.0),
-            AppText(AppString.priceText),
-          ],
-        ),
-        const Spacer(),
-        ElevatedButton(
-          onPressed: () {},
-          style:
-              ElevatedButton.styleFrom(backgroundColor: AppColor.buttonColor),
-          child: const AppText(
-            AppString.checkoutText,
-            color: Colors.white,
-          ),
-        )
+        AppBoldText('\$$totalPrice'),
+        const SizedBox(height: 3.0),
+        const AppText(AppString.priceText),
       ],
-    ),
-  );
+    );
+  }
+
+  Widget bottomNavBar(BuildContext context) {
+    var viewModel = Provider.of<CartViewModel>(context);
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20.0),
+      height: 80.0,
+      child: Row(
+        children: [
+          _bottomNavPriceSection(viewModel.totalPrice),
+          const Spacer(),
+          ElevatedButton(
+            onPressed: () {},
+            style:
+                ElevatedButton.styleFrom(backgroundColor: AppColor.buttonColor),
+            child: const AppText(
+              AppString.checkoutText,
+              color: Colors.white,
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   Widget isCartEmtpy(
       {List<CartModel>? cartList,

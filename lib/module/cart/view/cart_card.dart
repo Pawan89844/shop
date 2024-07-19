@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/data/model/cart_model.dart';
-import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 
