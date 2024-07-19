@@ -1,12 +1,12 @@
 class CartModel {
   final int productId;
-  final String? productTitle;
-  final String? productBrand;
-  final String? productImage;
-  final String? productSize;
-  final String? selectedColor;
+  String? productTitle;
+  String? productBrand;
+  String? productImage;
+  String? productSize;
+  String? selectedColor;
   int itemQuantity;
-  final double? productPrice;
+  double? productPrice;
 
   CartModel(
       {required this.productId,

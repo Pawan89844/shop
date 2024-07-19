@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
-import 'package:shop/data/dummy/dummy_categories.dart';
-import 'package:shop/data/dummy/dummy_offers.dart';
-import 'package:shop/data/dummy/dummy_products.dart';
-import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
@@ -23,7 +19,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<HomeViewModel>(context, listen: false);
-    var cartState = Provider.of<CartViewModel>(context);
+    // var cartState = Provider.of<CartViewModel>(context);
 
     final actions = [
       IconButton(
