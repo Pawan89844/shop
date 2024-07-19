@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   # bloc: ^8.1.4
-  connectivity_plus: ^6.0.3
+  # connectivity_plus: ^6.0.3
   # flutter_bloc: ^8.1.6
   provider: ^6.1.2
 
