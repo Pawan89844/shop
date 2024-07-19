@@ -5,6 +5,8 @@ import 'package:shop/data/dummy/dummy_product_details.dart';
 import 'package:shop/data/dummy/dummy_products.dart';
 import 'package:shop/data/model/cart_model.dart';
 import 'package:shop/data/model/product_details_model.dart';
+
+import '../../../global/cart_repository.dart';
 part 'mixins/cart_operations_mixin.dart';
 
 class CartViewModel extends ChangeNotifier with CartOperationsMixin {
@@ -50,5 +52,10 @@ class CartViewModel extends ChangeNotifier with CartOperationsMixin {
           .reduce((a, b) => a + b)
           .toDouble();
     }
+  }
+
+  void updateQuantity(int prodId, bool isIncrease) {
+    CartRepository(prodId).updateQuantity(cartItems, isIncrease);
+    notifyListeners();
   }
 }

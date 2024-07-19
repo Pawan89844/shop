@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/data/model/cart_model.dart';
+import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 
@@ -12,6 +14,7 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cartState = Provider.of<CartViewModel>(context);
     // inspect(cart);
     return ListTile(
       leading: Container(
@@ -89,24 +92,30 @@ class CartCard extends StatelessWidget {
           const SizedBox(height: 8.0),
           Row(
             children: [
-              Chip(
-                label: const Icon(Icons.remove),
-                side: BorderSide.none,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                color: MaterialStateProperty.all(const Color(0xFFF8F8F9)),
+              GestureDetector(
+                onTap: () => cartState.updateQuantity(cart.productId, false),
+                child: Chip(
+                  label: const Icon(Icons.remove),
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  color: MaterialStateProperty.all(const Color(0xFFF8F8F9)),
+                ),
               ),
               AppBoldText(
                   cart.itemQuantity < 10
                       ? '0${cart.itemQuantity}'
                       : '${cart.itemQuantity}',
                   fontSize: 18.0),
-              Chip(
-                label: const Icon(Icons.add),
-                side: BorderSide.none,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-                color: MaterialStateProperty.all(const Color(0xFFF8F8F9)),
+              GestureDetector(
+                onTap: () => cartState.updateQuantity(cart.productId, true),
+                child: Chip(
+                  label: const Icon(Icons.add),
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  color: MaterialStateProperty.all(const Color(0xFFF8F8F9)),
+                ),
               ),
               const Spacer(),
               AppBoldText(
