@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
-import 'package:shop/data/model/cart_model.dart';
 import 'package:shop/data/model/product_details_model.dart';
 import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
@@ -43,7 +41,10 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
           const Spacer(),
           ElevatedButton(
-            onPressed: () => viewModel.addToCart(cartState),
+            onPressed: () {
+              viewModel.addToCart(cartState);
+              cartState.getCartProducts();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: viewModel.isInCart(cartState.cartItems)
                     ? Colors.green
@@ -63,16 +64,14 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   Widget build(BuildContext context) {
     var query = MediaQuery.of(context);
-    var appState = Provider.of<AppState>(context, listen: false);
-    var cartState = Provider.of<CartViewModel>(context);
+    var appStateGlobal = Provider.of<AppState>(context, listen: false);
+    // var cartState = Provider.of<CartViewModel>(context);
 
     final actions = [
       IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.heart)),
       IconButton(
-          onPressed: () => appState.currentAction = PageAction(
-              state: PageState.addWidget,
-              page: cartConfig,
-              widget: const CartView()),
+          onPressed: () => appStateGlobal.currentAction = PageAction(
+              state: PageState.addWidget, page: cartConfig, widget: CartView()),
           icon: const Icon(CupertinoIcons.cart))
     ];
 
@@ -81,8 +80,8 @@ class _ProductDetailsState extends State<ProductDetails> {
       actions: actions,
     );
 
-    return Consumer<ProductDetailsViewModel>(
-      builder: (context, viewModel, __) {
+    return Consumer3<AppState, CartViewModel, ProductDetailsViewModel>(
+      builder: (context, appState, cartState, viewModel, __) {
         if (viewModel.product == null) {
           return const Center(child: CircularProgressIndicator());
         } else {

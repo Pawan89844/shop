@@ -14,15 +14,7 @@ class Shop extends StatefulWidget {
   State<Shop> createState() => _ShopState();
 }
 
-class _ShopState extends State<Shop> {
-  final appState = AppState();
-  final cartState = CartViewModel();
-  late AppRouteDelegates delegate;
-  late AppBackButtonDispatcher backButtonDispatcher;
-  final parser = AppRouteInformationParser();
-
-  // late StreamSubscription linkStream;
-
+class _ShopState extends State<Shop> with _ShopMixin {
   _ShopState() {
     delegate = AppRouteDelegates(appState);
     delegate.setNewRoutePath(homePageConfig);
@@ -41,10 +33,23 @@ class _ShopState extends State<Shop> {
 
   @override
   Widget build(BuildContext context) {
+    return buildShopApp();
+  }
+}
+
+mixin class _ShopMixin {
+  final appState = AppState();
+  final cartState = CartViewModel();
+  late AppRouteDelegates delegate;
+  late AppBackButtonDispatcher backButtonDispatcher;
+  final parser = AppRouteInformationParser();
+
+  Widget buildShopApp() {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => appState),
-        ChangeNotifierProvider(create: (context) => cartState),
+        ChangeNotifierProvider<AppState>(create: (context) => appState),
+        ChangeNotifierProvider<CartViewModel>(
+            create: (context) => cartState..fetchCart()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -53,9 +58,5 @@ class _ShopState extends State<Shop> {
         backButtonDispatcher: backButtonDispatcher,
       ),
     );
-    // return const MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   home: ProfileView(),
-    // );
   }
 }
