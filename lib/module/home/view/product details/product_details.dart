@@ -46,11 +46,10 @@ class _ProductDetailsState extends State<ProductDetails> {
               cartState.getCartProducts();
             },
             style: ElevatedButton.styleFrom(
-                backgroundColor: viewModel.isInCart(cartState.cartItems)
-                    ? Colors.green
-                    : AppColor.buttonColor),
+                backgroundColor:
+                    viewModel.inCart ? Colors.green : AppColor.buttonColor),
             child: AppText(
-              viewModel.isInCart(cartState.cartItems)
+              viewModel.inCart
                   ? AppString.goToCartText
                   : AppString.addToCartText,
               color: Colors.white,
@@ -131,7 +130,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     const Spacer(),
                     Visibility(
-                      visible: viewModel.isInCart(cartState.cartItems),
+                      visible: viewModel.inCart,
                       child: Container(
                         height: 40.0,
                         width: 100.0,
