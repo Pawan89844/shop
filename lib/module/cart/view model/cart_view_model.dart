@@ -58,4 +58,9 @@ class CartViewModel extends ChangeNotifier with CartOperationsMixin {
     CartRepository(prodId).updateQuantity(cartItems, isIncrease);
     notifyListeners();
   }
+
+  void deleteItem(int prodId) {
+    CartRepository(prodId).deleteCartItem(cartItems);
+    notifyListeners();
+  }
 }

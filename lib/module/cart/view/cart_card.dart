@@ -42,7 +42,7 @@ class CartCard extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () => cartState.deleteItem(cart.productId),
                   icon: const Icon(CupertinoIcons.delete, color: Colors.red))
             ],
           ),
