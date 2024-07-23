@@ -8,12 +8,7 @@ abstract interface class CartInterface {
 
 class CartRepository implements CartInterface {
   final int? productId;
-
   CartRepository(this.productId);
-
-  // bool inCart(List<CartModel> cart) {
-  //   return cart.any((item) => item.productId == productId);
-  // }
 
   void _addQuantity(CartModel? item, bool isIncrease) {
     if (isIncrease) {

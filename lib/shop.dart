@@ -29,6 +29,7 @@ class _ShopState extends State<Shop> with _ShopMixin {
   @override
   void dispose() {
     super.dispose();
+    delegate.dispose();
   }
 
   @override
@@ -44,19 +45,17 @@ mixin class _ShopMixin {
   late AppBackButtonDispatcher backButtonDispatcher;
   final parser = AppRouteInformationParser();
 
-  Widget buildShopApp() {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<AppState>(create: (context) => appState),
-        ChangeNotifierProvider<CartViewModel>(
-            create: (context) => cartState..fetchCart()),
-      ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerDelegate: delegate,
-        routeInformationParser: parser,
-        backButtonDispatcher: backButtonDispatcher,
-      ),
-    );
-  }
+  Widget buildShopApp() => MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AppState>(create: (context) => appState),
+          ChangeNotifierProvider<CartViewModel>(
+              create: (context) => cartState..fetchCart()),
+        ],
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerDelegate: delegate,
+          routeInformationParser: parser,
+          backButtonDispatcher: backButtonDispatcher,
+        ),
+      );
 }
