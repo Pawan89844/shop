@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
-import 'package:shop/data/model/product_details_model.dart';
 import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
+import 'package:shop/module/home/view/components/bottom_nav_ui_component.dart';
+import 'package:shop/module/home/view/components/product_color_ui_component.dart';
+import 'package:shop/module/home/view/components/product_description_ui_component.dart';
+import 'package:shop/module/home/view/components/product_title_ui_component.dart';
 import 'package:shop/module/home/view/product%20details/product_image.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
@@ -22,42 +24,17 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  Container _bottomNav(
-      ProductDetailsViewModel viewModel, CartViewModel cartState) {
-    ProductDetailsModel? product = viewModel.product;
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20.0),
-      height: 80.0,
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppBoldText('\$${product?.productPrice}'),
-              const SizedBox(height: 3.0),
-              const AppText(AppString.priceText),
-            ],
-          ),
-          const Spacer(),
-          ElevatedButton(
-            onPressed: () {
-              viewModel.addToCart(cartState);
-              cartState.getCartProducts();
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor:
-                    viewModel.inCart ? Colors.green : AppColor.buttonColor),
-            child: AppText(
-              viewModel.inCart
-                  ? AppString.goToCartText
-                  : AppString.addToCartText,
-              color: Colors.white,
-            ),
-          )
-        ],
-      ),
-    );
+  late BottomNavUIComponent _bottom;
+
+  @override
+  void initState() {
+    super.initState();
+    _bottom = BottomNavUIComponent();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -86,7 +63,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         } else {
           return Scaffold(
             appBar: appBar,
-            bottomNavigationBar: _bottomNav(viewModel, cartState),
+            bottomNavigationBar: _bottom.bottomNav(viewModel, cartState),
             body: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
@@ -113,144 +90,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         _ProductTrailing(viewModel.product?.isInStock as bool),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Row(
-                        children: [
-                          const Icon(CupertinoIcons.star, color: Colors.yellow),
-                          const SizedBox(width: 8.0),
-                          AppText(
-                              '${viewModel.product?.rating} (${viewModel.product?.reviews} review)')
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    Visibility(
-                      visible: viewModel.inCart,
-                      child: Container(
-                        height: 40.0,
-                        width: 100.0,
-                        margin: const EdgeInsets.only(right: 30.0),
-                        decoration: BoxDecoration(
-                            color: const Color(0xFFF8F8F9),
-                            borderRadius: BorderRadius.circular(8.0)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              onTap: () => viewModel.updateQuantity(
-                                  cartState.cartItems, false),
-                              child: Container(
-                                width: 40.0,
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                alignment: Alignment.center,
-                                child: const Icon(Icons.remove),
-                              ),
-                            ),
-                            AppText(viewModel
-                                    .getCartItemByProductId(cartState.cartItems)
-                                    ?.itemQuantity
-                                    .toString() ??
-                                ''),
-                            GestureDetector(
-                              onTap: () => viewModel.updateQuantity(
-                                  cartState.cartItems, true),
-                              child: Container(
-                                width: 40.0,
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10.0)),
-                                alignment: Alignment.center,
-                                child: const Icon(Icons.add),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                ProductTitleUIComponent(viewModel, cartState)
+                    .productReviewsSection(),
                 const SizedBox(height: 20.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const AppBoldText(AppString.colorText,
-                              fontSize: 20.0),
-                          const SizedBox(height: 10.0),
-                          Row(
-                            children: List.generate(
-                                4,
-                                (index) => Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: CircleAvatar(
-                                        radius: 12.0,
-                                        backgroundColor: Colors.primaries[
-                                            math.Random().nextInt(
-                                                Colors.primaries.length)],
-                                      ),
-                                    )),
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 10.0),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const AppBoldText(AppString.sizesText),
-                        const SizedBox(height: 10.0),
-                        Row(
-                          children: List.generate(
-                              viewModel.product?.availableSizes.length as int,
-                              (i) => Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: CircleAvatar(
-                                      backgroundColor: const Color(0xFFE9E9E9),
-                                      radius: 12.0,
-                                      child: AppText(viewModel.product
-                                          ?.availableSizes[i] as String),
-                                    ),
-                                  )),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                ProductColorUIComponent(viewModel).colorRow(),
                 const SizedBox(height: 10.0),
                 // PRODUCT INFO
-                Padding(
-                  padding: const EdgeInsets.only(left: 14.0),
-                  child: ListTile(
-                    title: const Padding(
-                      padding: EdgeInsets.only(bottom: 5.0, top: 8.0),
-                      child: AppBoldText(AppString.descriptionText,
-                          fontSize: 20.0),
-                    ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: AppText(
-                        viewModel.product?.productDescription as String,
-                        textAlign: TextAlign.justify,
-                      ),
-                    ),
-                    isThreeLine: true,
-                  ),
-                ),
+                ProductDescriptionUIComponent(viewModel).productDescription()
               ],
             ),
           );

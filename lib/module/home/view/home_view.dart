@@ -6,10 +6,13 @@ import 'package:shop/constants/app_string.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
+import 'package:shop/module/search/view/search_view.dart';
+import 'package:shop/routes/app_routes.dart';
+import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 import 'package:shop/widgets/app_text_field.dart';
-import 'dart:math' as math;
+// import 'dart:math' as math;
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -41,7 +44,17 @@ class HomeView extends StatelessWidget {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          AppTextField(hintText: AppString.searchHintText, suffix: suffix),
+          AppTextField(
+            hintText: AppString.searchHintText,
+            suffix: suffix,
+            readOnly: true,
+            onTap: () =>
+                Provider.of<AppState>(context, listen: false).currentAction =
+                    PageAction(
+                        state: PageState.addPage,
+                        page: searchConfig,
+                        widget: const SearchView()),
+          ),
           SizedBox(
             height: 200.0,
             child: ListView.builder(

@@ -26,7 +26,7 @@ class ProductDetailsViewModel extends ChangeNotifier {
   }
 
   void addToCart(CartViewModel cartState) {
-    cartState.cartItems.add(CartModel(productId: product?.id as int));
+    cartState.cartItems.add(CartModel(productId: product?.id ?? 0));
     _inCart = CartRepository(product?.id).inCart(cartState.cartItems);
     notifyListeners();
   }
