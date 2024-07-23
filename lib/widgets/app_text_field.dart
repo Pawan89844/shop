@@ -6,13 +6,15 @@ class AppTextField extends StatelessWidget {
   final Widget? suffix;
   final bool readOnly;
   final void Function()? onTap;
+  final void Function(String value)? onChanged;
   AppTextField(
       {super.key,
       this.controller,
       this.hintText,
       this.suffix,
       this.readOnly = false,
-      this.onTap});
+      this.onTap,
+      this.onChanged});
 
   final kOutlineBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(12.0),
@@ -26,6 +28,7 @@ class AppTextField extends StatelessWidget {
         controller: controller,
         readOnly: readOnly,
         onTap: onTap,
+        onChanged: onChanged,
         decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffix,

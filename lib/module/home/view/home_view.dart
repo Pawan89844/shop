@@ -53,7 +53,7 @@ class HomeView extends StatelessWidget {
                     PageAction(
                         state: PageState.addPage,
                         page: searchConfig,
-                        widget: const SearchView()),
+                        widget: SearchView()),
           ),
           SizedBox(
             height: 200.0,
