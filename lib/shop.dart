@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/module/cart/view%20model/cart_view_model.dart';
+import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/routes/app_back_button_dispatcher.dart';
 import 'package:shop/routes/app_route_delegates.dart';
 import 'package:shop/routes/app_route_info_parser.dart';
@@ -41,6 +42,7 @@ class _ShopState extends State<Shop> with _ShopMixin {
 mixin class _ShopMixin {
   final appState = AppState();
   final cartState = CartViewModel();
+  final homeState = HomeViewModel();
   late AppRouteDelegates delegate;
   late AppBackButtonDispatcher backButtonDispatcher;
   final parser = AppRouteInformationParser();
@@ -48,6 +50,7 @@ mixin class _ShopMixin {
   Widget buildShopApp() => MultiProvider(
         providers: [
           ChangeNotifierProvider<AppState>(create: (context) => appState),
+          ChangeNotifierProvider<HomeViewModel>(create: (context) => homeState),
           ChangeNotifierProvider<CartViewModel>(
               create: (context) => cartState..fetchCart()),
         ],
