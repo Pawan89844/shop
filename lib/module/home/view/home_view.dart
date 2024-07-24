@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
+import 'package:shop/global/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
+import 'package:shop/module/notifications/view/notification_view.dart';
 import 'package:shop/module/search/view/search_view.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
@@ -22,13 +24,15 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<HomeViewModel>(context, listen: false);
+    var appState = Provider.of<AppState>(context, listen: false);
     // var cartState = Provider.of<CartViewModel>(context);
 
     final actions = [
       IconButton(
           onPressed: () {}, icon: const Icon(CupertinoIcons.qrcode_viewfinder)),
       IconButton(
-          onPressed: () {}, icon: const Icon(CupertinoIcons.chat_bubble_text)),
+          onPressed: () => NavigateTo(appState).notificationsPage(),
+          icon: const Icon(CupertinoIcons.chat_bubble_text)),
     ];
 
     final suffix = IconButton(
@@ -48,12 +52,7 @@ class HomeView extends StatelessWidget {
             hintText: AppString.searchHintText,
             suffix: suffix,
             readOnly: true,
-            onTap: () =>
-                Provider.of<AppState>(context, listen: false).currentAction =
-                    PageAction(
-                        state: PageState.addPage,
-                        page: searchConfig,
-                        widget: SearchView()),
+            onTap: () => NavigateTo(appState).searchPage(),
           ),
           SizedBox(
             height: 200.0,

@@ -19,6 +19,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutes> {
         return productDetailsConfig;
       case cartPage:
         return cartConfig;
+      case searchPage:
+        return searchConfig;
       default:
         return homePageConfig;
     }
@@ -33,6 +35,10 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutes> {
         return RouteInformation(uri: Uri.parse(productDetailsPage));
       case Pages.cart:
         return RouteInformation(uri: Uri.parse(cartPage));
+      case Pages.search:
+        return RouteInformation(uri: Uri.parse(searchPage));
+      case Pages.notifications:
+        return RouteInformation(uri: Uri.parse(notificationsPage));
       default:
         return RouteInformation(uri: Uri.parse(homePage));
     }

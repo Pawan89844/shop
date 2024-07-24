@@ -4,4 +4,5 @@ class AppPage {
   static const String productDetails = 'productDetails';
   static const String cart = 'cart';
   static const String search = 'search';
+  static const String notifications = 'notifications';
 }
