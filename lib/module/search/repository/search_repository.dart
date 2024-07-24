@@ -11,11 +11,15 @@ class SearchRepository {
   SearchRepository(
       this.searchController, this.homeViweModel, this.filteredProducts);
 
+  bool _compareItem(ProductModel item) {
+    return item.tittle
+        .toLowerCase()
+        .contains(searchController.text.toLowerCase());
+  }
+
   List<ProductModel> _filterList() {
     return homeViweModel.products.products
-        .where((item) => item.tittle
-            .toLowerCase()
-            .contains(searchController.text.toLowerCase()))
+        .where((item) => _compareItem(item))
         .toList();
   }
 
