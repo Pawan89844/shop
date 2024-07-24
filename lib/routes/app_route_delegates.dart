@@ -7,6 +7,7 @@ import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/home_view.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
+import 'package:shop/module/notifications/view/notification_view.dart';
 import 'package:shop/module/search/view/search_view.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
@@ -87,6 +88,8 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
         cartConfig.currentPageAction = action;
       case Pages.search:
         searchConfig.currentPageAction = action;
+      case Pages.notifications:
+        notificationsConfig.currentPageAction = action;
       default:
         break;
     }
@@ -110,6 +113,8 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
           break;
         case AppPage.search:
           replaceAll(searchConfig);
+        case AppPage.notifications:
+          replaceAll(notificationsConfig);
           break;
       }
     }
@@ -210,7 +215,9 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
         case Pages.cart:
           _addPageData(CartView(), route);
         case Pages.search:
-          _addPageData(SearchView(), route);
+          _addPageData(const SearchView(), route);
+        case Pages.notifications:
+          _addPageData(const NotificationView(), route);
         default:
       }
     }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/global/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/product%20details/product_details.dart';
 import 'package:shop/routes/app_routes.dart';
@@ -18,17 +19,8 @@ class ProductGrid extends StatelessWidget {
     final image = Image.network(provider.products.products[i].productImage,
         isAntiAlias: true);
     return InkWell(
-      onTap: () {
-        appState.setProdId = provider.products.products[i].id;
-        appState.currentAction = PageAction(
-            state: PageState.addWidget,
-            widget: ChangeNotifierProvider(
-              create: (__) => ProductDetailsViewModel()
-                ..getProductById(appState.prodId as int),
-              child: const ProductDetails(),
-            ),
-            page: productDetailsConfig);
-      },
+      onTap: () => NavigateTo(appState)
+          .productDetailsPage(provider.products.products[i].id),
       child: Column(
         children: [
           AspectRatio(

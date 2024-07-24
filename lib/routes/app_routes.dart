@@ -1,12 +1,13 @@
 import 'package:shop/constants/app_page.dart';
 import 'package:shop/routes/app_state.dart';
 
-enum Pages { home, cart, productDetails, search }
+enum Pages { home, cart, productDetails, search, notifications }
 
 const String homePage = '/home';
 const String productDetailsPage = '/product-details';
 const String cartPage = '/cart';
 const String searchPage = '/search';
+const String notificationsPage = '/notifications';
 
 class AppRoutes {
   final String key;
@@ -48,4 +49,9 @@ AppRoutes searchConfig = AppRoutes(
     key: AppPage.search,
     path: searchPage,
     page: Pages.search,
+    currentPageAction: null);
+AppRoutes notificationsConfig = AppRoutes(
+    key: AppPage.notifications,
+    path: notificationsPage,
+    page: Pages.notifications,
     currentPageAction: null);
