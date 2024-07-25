@@ -23,6 +23,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutes> {
         return searchConfig;
       case productsPage:
         return productsConfig;
+      case qrScanPage:
+        return qrScanConfig;
       default:
         return homePageConfig;
     }
@@ -43,6 +45,8 @@ class AppRouteInformationParser extends RouteInformationParser<AppRoutes> {
         return RouteInformation(uri: Uri.parse(notificationsPage));
       case Pages.products:
         return RouteInformation(uri: Uri.parse(productsPage));
+      case Pages.qrscan:
+        return RouteInformation(uri: Uri.parse(qrScanPage));
       default:
         return RouteInformation(uri: Uri.parse(homePage));
     }

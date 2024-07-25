@@ -6,4 +6,5 @@ class AppPage {
   static const String search = 'search';
   static const String notifications = 'notifications';
   static const String products = 'products';
+  static const String qrScan = 'qr-scan';
 }

@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
-import 'package:shop/module/home/view/product%20details/product_details.dart';
+import 'package:shop/module/home/product%20details/product_details.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_text.dart';

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_string.dart';
-import '../../../../data/model/product_details_model.dart';
-import '../../../../widgets/app_bold_text.dart';
-import '../../../../widgets/app_text.dart';
-import '../../../cart/view model/cart_view_model.dart';
-import '../../view model/product_details_view_model.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_string.dart';
+import '../../../data/model/product_details_model.dart';
+import '../../../widgets/app_bold_text.dart';
+import '../../../widgets/app_text.dart';
+import '../../cart/view model/cart_view_model.dart';
+import '../view model/product_details_view_model.dart';
 
 class BottomNavUIComponent {
   void _addToCartCallback(
