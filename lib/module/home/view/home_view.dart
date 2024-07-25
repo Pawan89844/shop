@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
-import 'package:shop/global/navigate_page.dart';
+import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/components/product_carousel.dart';
 import 'package:shop/module/home/view/components/products_grid.dart';
@@ -14,6 +15,7 @@ import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 import 'package:shop/widgets/app_text_field.dart';
+import 'dart:collection';
 // import 'dart:math' as math;
 
 class HomeView extends StatelessWidget {
@@ -103,14 +105,17 @@ class HomeView extends StatelessWidget {
           ),
           Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(14.0),
+              Padding(
+                padding: const EdgeInsets.all(14.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppBoldText(AppString.popularCategory),
-                    AppText(AppString.showAllText,
-                        color: AppColor.textButtonColor)
+                    const AppBoldText(AppString.popularCategory),
+                    GestureDetector(
+                      onTap: () => NavigateTo(appState).productsPage(),
+                      child: const AppText(AppString.showAllText,
+                          color: AppColor.textButtonColor),
+                    )
                   ],
                 ),
               ),
