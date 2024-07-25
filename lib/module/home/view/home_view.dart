@@ -41,9 +41,9 @@ class HomeView extends StatelessWidget {
         onPressed: () {}, icon: const Icon(Icons.search, size: 25.0));
 
     final appBar = AppBar(
-      title: const AppText(AppString.appName),
-      actions: actions,
-    );
+        title: AppText(AppString.appName.toUpperCase()),
+        actions: actions,
+        forceMaterialTransparency: true);
 
     return Scaffold(
       appBar: appBar,

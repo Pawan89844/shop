@@ -35,6 +35,7 @@ class AppString {
   /// Pages Name
   static const String cartPage = 'Cart';
   static const String productDetailsPage = 'Product Details';
+  static const String productsPage = 'Products';
 
   /// Dummy Text
   static const String dummyDescription =
