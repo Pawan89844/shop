@@ -1,9 +1,10 @@
 import 'package:provider/provider.dart';
+import 'package:shop/module/home/view/qr_scan_view.dart';
 import 'package:shop/module/products/view/products_view.dart';
 import 'package:shop/routes/app_state.dart';
 
 import '../module/home/view model/product_details_view_model.dart';
-import '../module/home/view/product details/product_details.dart';
+import '../module/home/product details/product_details.dart';
 import '../module/notifications/view/notification_view.dart';
 import '../module/search/view/search_view.dart';
 import 'app_routes.dart';
@@ -13,6 +14,7 @@ abstract class RoutePages {
   void searchPage();
   void productDetailsPage(int productId);
   void productsPage();
+  void qrPage();
 }
 
 class NavigateTo implements RoutePages {
@@ -53,5 +55,11 @@ class NavigateTo implements RoutePages {
   void productsPage() {
     appState.currentAction = PageAction(
         state: PageState.addPage, page: productsConfig, widget: ProductsView());
+  }
+
+  @override
+  void qrPage() {
+    appState.currentAction = PageAction(
+        state: PageState.addPage, page: qrScanConfig, widget: QRScanView());
   }
 }

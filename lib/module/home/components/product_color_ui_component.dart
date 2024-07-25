@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 
-import '../../../../constants/app_string.dart';
-import '../../../../widgets/app_bold_text.dart';
-import '../../../../widgets/app_text.dart';
+import '../../../constants/app_string.dart';
+import '../../../widgets/app_bold_text.dart';
+import '../../../widgets/app_text.dart';
 import 'dart:math' as math;
 
 class ProductColorUIComponent {

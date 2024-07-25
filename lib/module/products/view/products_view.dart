@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop/constants/app_string.dart';
 import 'package:shop/data/dummy/dummy_product_details.dart';
 import 'package:shop/data/dummy/dummy_products.dart';
-import 'package:shop/module/home/view/components/products_grid.dart';
+import 'package:shop/module/home/components/products_grid.dart';
 import 'package:shop/routes/app_state.dart';
 import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/widgets/app_bold_text.dart';

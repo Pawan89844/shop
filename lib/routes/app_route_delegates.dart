@@ -6,7 +6,8 @@ import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/home_view.dart';
-import 'package:shop/module/home/view/product%20details/product_details.dart';
+import 'package:shop/module/home/product%20details/product_details.dart';
+import 'package:shop/module/home/view/qr_scan_view.dart';
 import 'package:shop/module/notifications/view/notification_view.dart';
 import 'package:shop/module/products/view/products_view.dart';
 import 'package:shop/module/search/view/search_view.dart';
@@ -93,6 +94,8 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
         notificationsConfig.currentPageAction = action;
       case Pages.products:
         productsConfig.currentPageAction = action;
+      case Pages.qrscan:
+        qrScanConfig.currentPageAction = action;
       default:
         break;
     }
@@ -120,6 +123,8 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
           replaceAll(notificationsConfig);
         case AppPage.products:
           replaceAll(productsConfig);
+        case AppPage.qrScan:
+          replaceAll(qrScanConfig);
           break;
       }
     }
@@ -225,6 +230,8 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
           _addPageData(const NotificationView(), route);
         case Pages.products:
           _addPageData(ProductsView(), route);
+        case Pages.qrscan:
+          _addPageData(QRScanView(), route);
         default:
       }
     }
