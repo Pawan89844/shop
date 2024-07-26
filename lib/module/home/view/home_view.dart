@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
@@ -28,13 +29,16 @@ class HomeView extends StatelessWidget {
       IconButton(
           onPressed: () => NavigateTo(appState).notificationsPage(),
           icon: const Icon(CupertinoIcons.chat_bubble_text)),
+      const SizedBox(width: 8.0)
     ];
 
     final suffix = IconButton(
         onPressed: () {}, icon: const Icon(Icons.search, size: 25.0));
 
     final appBar = AppBar(
-        title: AppText(AppString.appName.toUpperCase()),
+        title: const Padding(
+            padding: EdgeInsets.only(left: 3.0),
+            child: AppText(AppString.appName)),
         actions: actions,
         forceMaterialTransparency: true);
 
@@ -61,81 +65,90 @@ class HomeView extends StatelessWidget {
                   ProductCarousel(offers: provider.offersCarousel.offers[i]),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: GestureDetector(
-                  onTap: () => NavigateTo(appState).productsPage(),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppBoldText(AppString.collectionsCategory),
-                      AppText(AppString.showAllText,
-                          color: AppColor.textButtonColor)
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: GestureDetector(
-                  onTap: () => NavigateTo(appState).productsPage(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: provider.collections.categories
-                        .map((item) => Column(
-                              children: [
-                                CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                        NetworkImage(item.featuredImage)),
-                                const SizedBox(height: 8.0),
-                                AppText(item.title,
-                                    color: AppColor.boldTextColor),
-                              ],
-                            ))
-                        .toList(),
-                  ),
-                ),
-              )
-            ],
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: Platform.isIOS ? 8.0 : 8.0),
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const AppBoldText(AppString.popularCategory),
-                    GestureDetector(
-                      onTap: () => NavigateTo(appState).productsPage(),
-                      child: const AppText(AppString.showAllText,
-                          color: AppColor.textButtonColor),
+                    Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: GestureDetector(
+                        onTap: () => NavigateTo(appState).productsPage(),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AppBoldText(AppString.collectionsCategory),
+                            AppText(AppString.showAllText,
+                                color: AppColor.textButtonColor)
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: GestureDetector(
+                        onTap: () => NavigateTo(appState).productsPage(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: provider.collections.categories
+                              .map((item) => Column(
+                                    children: [
+                                      CircleAvatar(
+                                          radius: 30,
+                                          backgroundImage:
+                                              NetworkImage(item.featuredImage)),
+                                      const SizedBox(height: 8.0),
+                                      AppText(item.title,
+                                          color: AppColor.boldTextColor),
+                                    ],
+                                  ))
+                              .toList(),
+                        ),
+                      ),
                     )
                   ],
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * .65,
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(12.0),
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  primary: false,
-                  // scrollDirection: Axis.vertical,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10.0,
-                      mainAxisSpacing: 10.0,
-                      childAspectRatio: 6.6 / 9.0),
-                  itemCount: provider.products.products.length - 1,
-                  itemBuilder: (context, i) => ProductGrid(i: i),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const AppBoldText(AppString.popularCategory),
+                          GestureDetector(
+                            onTap: () => NavigateTo(appState).productsPage(),
+                            child: const AppText(AppString.showAllText,
+                                color: AppColor.textButtonColor),
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * .65,
+                      child: GridView.builder(
+                        padding: const EdgeInsets.all(12.0),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        primary: false,
+                        // scrollDirection: Axis.vertical,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10.0,
+                                mainAxisSpacing: 10.0,
+                                childAspectRatio: 6.6 / 9.0),
+                        itemCount: provider.products.products.length - 1,
+                        itemBuilder: (context, i) => ProductGrid(i: i),
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
+              ],
+            ),
           ),
           const SizedBox(height: 20.0),
         ],

@@ -32,6 +32,7 @@ class NotificationService implements PushNotification {
     }
   }
 
+  /// This is the main function which takes the input from Firebase and forwards to local notification service.
   Future<void> _pushNotification(RemoteMessage msg) async {
     if (msg.notification != null) {
       return await _showNotification(
@@ -64,7 +65,9 @@ class _NotificationConfiguration {
   _NotificationConfiguration(this.localNotificationsPlugin);
 
   DarwinInitializationSettings _iosInitialization() {
-    return const DarwinInitializationSettings();
+    return DarwinInitializationSettings(
+      onDidReceiveLocalNotification: (id, title, body, payload) {},
+    );
   }
 
   InitializationSettings initialize() {
@@ -73,14 +76,19 @@ class _NotificationConfiguration {
     return initializationSettings;
   }
 
+  AndroidNotificationDetails _notificationAndroid() =>
+      const AndroidNotificationDetails('shop', 'shop_channel',
+          importance: Importance.max,
+          priority: Priority.high,
+          playSound: true,
+          ticker: 'ticker');
+
+  DarwinNotificationDetails _notificationIOS() =>
+      const DarwinNotificationDetails();
+
   Future<void> showNotification(int id, String? title, String? body) async {
-    AndroidNotificationDetails notificationAndroid =
-        const AndroidNotificationDetails('shop', 'shop_channel',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-    NotificationDetails details =
-        NotificationDetails(android: notificationAndroid);
+    NotificationDetails details = NotificationDetails(
+        android: _notificationAndroid(), iOS: _notificationIOS());
 
     return localNotificationsPlugin.show(id, title, body, details);
   }
