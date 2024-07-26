@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_colors.dart';
 import 'package:shop/constants/app_string.dart';
@@ -63,34 +64,40 @@ class HomeView extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.all(14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppBoldText(AppString.collectionsCategory),
-                    AppText(AppString.showAllText,
-                        color: AppColor.textButtonColor)
-                  ],
+              Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: GestureDetector(
+                  onTap: () => NavigateTo(appState).productsPage(),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppBoldText(AppString.collectionsCategory),
+                      AppText(AppString.showAllText,
+                          color: AppColor.textButtonColor)
+                    ],
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(14.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: provider.collections.categories
-                      .map((item) => Column(
-                            children: [
-                              CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage:
-                                      NetworkImage(item.featuredImage)),
-                              const SizedBox(height: 8.0),
-                              AppText(item.title,
-                                  color: AppColor.boldTextColor),
-                            ],
-                          ))
-                      .toList(),
+                child: GestureDetector(
+                  onTap: () => NavigateTo(appState).productsPage(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: provider.collections.categories
+                        .map((item) => Column(
+                              children: [
+                                CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage:
+                                        NetworkImage(item.featuredImage)),
+                                const SizedBox(height: 8.0),
+                                AppText(item.title,
+                                    color: AppColor.boldTextColor),
+                              ],
+                            ))
+                        .toList(),
+                  ),
                 ),
               )
             ],

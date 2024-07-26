@@ -37,23 +37,17 @@ class _QRScanViewState extends State<QRScanView> with WidgetsBindingObserver {
         _barcode = barcodes.barcodes.firstOrNull;
       } else {
         unawaited(_subscription?.cancel());
-        // unawaited(controller.stop());
         navigate();
       }
-      // setState(() {});
     }
   }
 
   @override
   Future<void> dispose() async {
-    // Stop listening to lifecycle changes.
     WidgetsBinding.instance.removeObserver(this);
-    // Stop listening to the barcode events.
     unawaited(_subscription?.cancel());
     _subscription = null;
-    // Dispose the widget itself.
     super.dispose();
-    // Finally, dispose of the controller.
     await controller.dispose();
   }
 
