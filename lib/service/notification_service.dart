@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shop/service/push_notification.dart';
@@ -9,6 +11,13 @@ class NotificationService implements PushNotification {
   final FlutterLocalNotificationsPlugin _localNotification =
       FlutterLocalNotificationsPlugin();
   int _notificationId = 1;
+  StreamController<RemoteMessage> message = StreamController<RemoteMessage>();
+
+  static final NotificationService _instance = NotificationService._internal();
+
+  factory NotificationService() => _instance;
+
+  NotificationService._internal();
 
   Future<bool> _requestPermission(AuthorizationStatus status) async {
     if (status == _authorized && status == _provisioned) {
@@ -35,6 +44,7 @@ class NotificationService implements PushNotification {
   /// This is the main function which takes the input from Firebase and forwards to local notification service.
   Future<void> _pushNotification(RemoteMessage msg) async {
     if (msg.notification != null) {
+      message.sink.add(msg);
       return await _showNotification(
           _notificationId++, msg.notification?.title, msg.notification?.body);
     }
