@@ -11,4 +11,22 @@ class HomeViewModel extends ProductDetailsViewModel {
   final offersCarousel = DummyOffers();
   final collections = DummyCategories();
   final products = DummyProducts();
+  final _notification = NotificationService();
+  // RemoteMessage? _message;
+
+  // RemoteMessage? get message => _message;
+
+  NotificationService get notification => _notification;
+
+  // RemoteMessage? remoteMessage() {
+  //   _notification.message.stream.listen((msg) {
+  //     _message = msg;
+  //     notifyListeners();
+  //   });
+  //   return null;
+  // }
+
+  // void disposeRemoteMessage() {
+  //   _notification.message.sink.close();
+  // }
 }

@@ -1,6 +1,8 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shop/global/cart_repository.dart';
 import 'package:shop/module/cart/view%20model/cart_view_model.dart';
+import 'package:shop/service/notification_service.dart';
 
 import '../../../data/dummy/dummy_categories.dart';
 import '../../../data/dummy/dummy_offers.dart';
