@@ -14,8 +14,20 @@ import 'package:shop/widgets/app_bold_text.dart';
 import 'package:shop/widgets/app_text.dart';
 import 'package:shop/widgets/app_text_field.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    super.initState();
+    var provider = Provider.of<HomeViewModel>(context, listen: false);
+    provider.getProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +153,7 @@ class HomeView extends StatelessWidget {
                                 crossAxisSpacing: 10.0,
                                 mainAxisSpacing: 10.0,
                                 childAspectRatio: 6.6 / 9.0),
-                        itemCount: provider.products.products.length - 1,
+                        itemCount: 4,
                         itemBuilder: (context, i) => ProductGrid(i: i),
                       ),
                     )

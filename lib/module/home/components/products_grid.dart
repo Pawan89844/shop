@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
@@ -17,8 +16,7 @@ class ProductGrid extends StatelessWidget {
     var appState = Provider.of<AppState>(context, listen: false);
     var provider = Provider.of<HomeViewModel>(context);
     String product = provider.products.products[i].tittle;
-    final image = Image.network(provider.products.products[i].productImage,
-        isAntiAlias: true);
+
     return GestureDetector(
       onTap: () => NavigateTo(appState)
           .productDetailsPage(provider.products.products[i].id),
@@ -45,22 +43,15 @@ class ProductGrid extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius:
                       const BorderRadius.vertical(top: Radius.circular(15)),
-                  child: image,
+                  child: provider.appProducts == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : Image.network(
+                          provider.appProducts!.message[i].prodImage,
+                          isAntiAlias: true),
                 ),
               ),
             ),
           ),
-          // Expanded(child: image),
-          // AspectRatio(
-          //   aspectRatio: 13.0 / 12.0,
-          //   child: Card(
-          //     surfaceTintColor: Colors.blue,
-          //     shape: RoundedRectangleBorder(
-          //         borderRadius: BorderRadius.circular(12.0)),
-          //     elevation: 0.5,
-          //     child: image,
-          //   ),
-          // ),
           const SizedBox(height: 12.0),
           Column(
             children: [
@@ -68,7 +59,7 @@ class ProductGrid extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   margin: const EdgeInsets.only(bottom: 8.0),
                   child: AppText(
-                    product,
+                    provider.appProducts?.message[i].prodName ?? '',
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.center,
                     maxLine: 2,
