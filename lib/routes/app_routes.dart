@@ -5,18 +5,25 @@ enum Pages {
   home,
   cart,
   productDetails,
+  search,
+  notifications,
+  products,
+  qrscan
 }
 
 const String homePage = '/home';
 const String productDetailsPage = '/product-details';
 const String cartPage = '/cart';
+const String searchPage = '/search';
+const String notificationsPage = '/notifications';
+const String productsPage = '/products';
+const String qrScanPage = '/qr-scan';
 
 class AppRoutes {
   final String key;
   final String path;
   final Pages page;
   late PageAction? currentPageAction;
-
 
   AppRoutes(
       {required this.key,
@@ -31,7 +38,6 @@ class AppRoutes {
   // static AppRoutes cart = AppRoutes._('cart');
 
   // static const String productDetails = '/product-details';
-
 }
 
 AppRoutes homePageConfig = AppRoutes(
@@ -48,4 +54,24 @@ AppRoutes cartConfig = AppRoutes(
     key: AppPage.cart,
     path: cartPage,
     page: Pages.cart,
+    currentPageAction: null);
+AppRoutes searchConfig = AppRoutes(
+    key: AppPage.search,
+    path: searchPage,
+    page: Pages.search,
+    currentPageAction: null);
+AppRoutes notificationsConfig = AppRoutes(
+    key: AppPage.notifications,
+    path: notificationsPage,
+    page: Pages.notifications,
+    currentPageAction: null);
+AppRoutes productsConfig = AppRoutes(
+    key: AppPage.products,
+    path: productsPage,
+    page: Pages.products,
+    currentPageAction: null);
+AppRoutes qrScanConfig = AppRoutes(
+    key: AppPage.qrScan,
+    path: qrScanPage,
+    page: Pages.qrscan,
     currentPageAction: null);

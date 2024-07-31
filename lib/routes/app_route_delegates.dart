@@ -6,7 +6,11 @@ import 'package:shop/module/cart/view%20model/cart_view_model.dart';
 import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/view/home_view.dart';
-import 'package:shop/module/home/view/product%20details/product_details.dart';
+import 'package:shop/module/home/product%20details/product_details.dart';
+import 'package:shop/module/home/view/qr_scan_view.dart';
+import 'package:shop/module/notifications/view/notification_view.dart';
+import 'package:shop/module/products/view/products_view.dart';
+import 'package:shop/module/search/view/search_view.dart';
 import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_no_internet.dart';
@@ -84,6 +88,14 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
         productDetailsConfig.currentPageAction = action;
       case Pages.cart:
         cartConfig.currentPageAction = action;
+      case Pages.search:
+        searchConfig.currentPageAction = action;
+      case Pages.notifications:
+        notificationsConfig.currentPageAction = action;
+      case Pages.products:
+        productsConfig.currentPageAction = action;
+      case Pages.qrscan:
+        qrScanConfig.currentPageAction = action;
       default:
         break;
     }
@@ -104,6 +116,15 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
           break;
         case AppPage.productDetails:
           replaceAll(productDetailsConfig);
+          break;
+        case AppPage.search:
+          replaceAll(searchConfig);
+        case AppPage.notifications:
+          replaceAll(notificationsConfig);
+        case AppPage.products:
+          replaceAll(productsConfig);
+        case AppPage.qrScan:
+          replaceAll(qrScanConfig);
           break;
       }
     }
@@ -197,17 +218,20 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
     if (shouldAddPage) {
       switch (route.page) {
         case Pages.home:
-          _addPageData(
-              ChangeNotifierProvider(
-                create: (context) => HomeViewModel(),
-                child: const HomeView(),
-              ),
-              route);
+          _addPageData(const HomeView(), route);
           break;
         case Pages.productDetails:
           _addPageData(const ProductDetails(), route);
         case Pages.cart:
-          _addPageData(const CartView(), route);
+          _addPageData(CartView(), route);
+        case Pages.search:
+          _addPageData(const SearchView(), route);
+        case Pages.notifications:
+          _addPageData(const NotificationView(), route);
+        case Pages.products:
+          _addPageData(ProductsView(), route);
+        case Pages.qrscan:
+          _addPageData(QRScanView(), route);
         default:
       }
     }

@@ -11,4 +11,29 @@ class HomeViewModel extends ProductDetailsViewModel {
   final offersCarousel = DummyOffers();
   final collections = DummyCategories();
   final products = DummyProducts();
+  final _notification = NotificationService();
+  ProductsViaAPI? appProducts;
+  // RemoteMessage? _message;
+
+  // RemoteMessage? get message => _message;
+
+  NotificationService get notification => _notification;
+
+  void getProducts() async {
+    final repo = await HomeRepository(appProducts).getProductsInIsolate();
+    appProducts = repo;
+    notifyListeners();
+  }
+
+  // RemoteMessage? remoteMessage() {
+  //   _notification.message.stream.listen((msg) {
+  //     _message = msg;
+  //     notifyListeners();
+  //   });
+  //   return null;
+  // }
+
+  // void disposeRemoteMessage() {
+  //   _notification.message.sink.close();
+  // }
 }

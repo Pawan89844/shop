@@ -16,6 +16,8 @@ class AppString {
   static const String stockOutText = 'Sold';
   static const String descriptionText = 'Product Description';
   static const String checkoutText = 'Checkout';
+  static const String noNotificationText = 'No Notification!';
+  static const String notificationPageTitleText = 'Notifications';
   static const String noInternetText =
       'Oops! Looks like there\'s no internet connection.';
 
@@ -33,6 +35,7 @@ class AppString {
   /// Pages Name
   static const String cartPage = 'Cart';
   static const String productDetailsPage = 'Product Details';
+  static const String productsPage = 'Products';
 
   /// Dummy Text
   static const String dummyDescription =
