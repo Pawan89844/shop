@@ -12,11 +12,18 @@ class HomeViewModel extends ProductDetailsViewModel {
   final collections = DummyCategories();
   final products = DummyProducts();
   final _notification = NotificationService();
+  ProductsViaAPI? appProducts;
   // RemoteMessage? _message;
 
   // RemoteMessage? get message => _message;
 
   NotificationService get notification => _notification;
+
+  void getProducts() async {
+    final repo = await HomeRepository(appProducts).getProductsInIsolate();
+    appProducts = repo;
+    notifyListeners();
+  }
 
   // RemoteMessage? remoteMessage() {
   //   _notification.message.stream.listen((msg) {
