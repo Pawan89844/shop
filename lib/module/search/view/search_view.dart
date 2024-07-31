@@ -41,8 +41,8 @@ class SearchView extends StatelessWidget {
                   itemBuilder: (context, i) {
                     final prod = vm.history[i];
                     return ListTile(
-                      onTap: () =>
-                          NavigateTo(appstate).productDetailsPage(prod.id),
+                      onTap: () => NavigateTo(appstate)
+                          .productDetailsPage(prod.id as String, context),
                       title: AppText(prod.tittle),
                       leading: Image.network(prod.productImage),
                     );

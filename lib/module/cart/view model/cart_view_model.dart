@@ -5,6 +5,7 @@ import 'package:shop/data/model/product_details_model.dart';
 import 'package:shop/global/cart_crud.dart';
 
 import '../../../global/cart_repository.dart';
+import '../../home/model/data/product_details_model.dart';
 
 class CartViewModel extends ChangeNotifier {
   List<CartModel> cartItems = <CartModel>[];

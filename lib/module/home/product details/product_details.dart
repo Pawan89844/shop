@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/constants/app_string.dart';
 import 'package:shop/module/cart/view%20model/cart_view_model.dart';
-import 'package:shop/module/cart/view/cart_view.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/home/components/bottom_nav_ui_component.dart';
 import 'package:shop/module/home/components/product_color_ui_component.dart';
 import 'package:shop/module/home/components/product_description_ui_component.dart';
 import 'package:shop/module/home/components/product_title_ui_component.dart';
 import 'package:shop/module/home/product%20details/product_image.dart';
-import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
-import 'package:shop/widgets/app_bold_text.dart';
+import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/widgets/app_text.dart';
-import 'dart:math' as math;
 
 class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
@@ -24,12 +21,9 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  late BottomNavUIComponent _bottom;
-
   @override
   void initState() {
     super.initState();
-    _bottom = BottomNavUIComponent();
   }
 
   @override
@@ -46,8 +40,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     final actions = [
       IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.heart)),
       IconButton(
-          onPressed: () => appStateGlobal.currentAction = PageAction(
-              state: PageState.addWidget, page: cartConfig, widget: CartView()),
+          onPressed: () => NavigateTo(appStateGlobal).cartPage(),
           icon: const Icon(CupertinoIcons.cart))
     ];
 
@@ -63,7 +56,8 @@ class _ProductDetailsState extends State<ProductDetails> {
         } else {
           return Scaffold(
             appBar: appBar,
-            bottomNavigationBar: _bottom.bottomNav(viewModel, cartState),
+            bottomNavigationBar:
+                BottomNavUIComponent(viewModel).bottomNav(cartState),
             body: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
@@ -72,20 +66,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                   child: ListView.builder(
                     shrinkWrap: true,
                     primary: false,
-                    itemCount: viewModel.product?.productImage.length,
+                    itemCount: viewModel.product?.prodImages.length,
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.all(12.0),
                     itemBuilder: (context, i) => ProductImage(
-                        prodImages:
-                            viewModel.product?.productImage[i] as String),
+                        prodImages: viewModel.product?.prodImages[i] as String),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: ListTile(
-                    title:
-                        AppBoldText(viewModel.product?.productName as String),
+                    // title:
+                    //     AppBoldText(viewModel.product?. as String),
                     trailing:
                         _ProductTrailing(viewModel.product?.isInStock as bool),
                   ),

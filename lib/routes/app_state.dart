@@ -17,9 +17,9 @@ class AppState extends ChangeNotifier {
 
   PageAction get currentAction => _currentAction;
 
-  int? _prodId;
+  String? _prodId;
 
-  int? get prodId => _prodId;
+  String? get prodId => _prodId;
 
   set currentAction(PageAction action) {
     _currentAction = action;
@@ -30,7 +30,7 @@ class AppState extends ChangeNotifier {
     _currentAction = PageAction();
   }
 
-  set setProdId(int? pId) {
+  set setProdId(String? pId) {
     _prodId = pId;
     notifyListeners();
   }

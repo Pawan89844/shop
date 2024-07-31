@@ -13,7 +13,7 @@ class ProductDescriptionUIComponent {
   Padding _productDescription() => Padding(
         padding: const EdgeInsets.all(6.0),
         child: AppText(
-          viewModel.product?.productDescription as String,
+          viewModel.product?.description as String,
           textAlign: TextAlign.justify,
         ),
       );
