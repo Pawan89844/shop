@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
-import 'package:shop/module/home/product%20details/product_details.dart';
-import 'package:shop/routes/app_routes.dart';
 import 'package:shop/routes/app_state.dart';
 import 'package:shop/widgets/app_text.dart';
 
@@ -15,11 +13,10 @@ class ProductGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = Provider.of<AppState>(context, listen: false);
     var provider = Provider.of<HomeViewModel>(context);
-    String product = provider.products.products[i].tittle;
 
     return GestureDetector(
       onTap: () => NavigateTo(appState)
-          .productDetailsPage(provider.products.products[i].id),
+          .productDetailsPage(provider.appProducts?.message[i].prodId, context),
       child: Column(
         children: [
           Expanded(
@@ -71,9 +68,3 @@ class ProductGrid extends StatelessWidget {
     );
   }
 }
-
-// header: const Icon(Icons.person, size: 150.0),
-      // footer: Container(
-      //     alignment: Alignment.center,
-      //     margin: const EdgeInsets.only(bottom: 8.0),
-      //     child: AppText('Sample $i')),

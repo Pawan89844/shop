@@ -14,14 +14,13 @@ class ProductColorUIComponent {
   Row _sizeSelector() {
     return Row(
       children: List.generate(
-          viewModel.product?.availableSizes.length as int,
+          viewModel.product?.sizes.length as int,
           (i) => Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: CircleAvatar(
                   backgroundColor: const Color(0xFFE9E9E9),
                   radius: 12.0,
-                  child:
-                      AppText(viewModel.product?.availableSizes[i] as String),
+                  child: AppText(viewModel.product?.sizes[i] as String),
                 ),
               )),
     );

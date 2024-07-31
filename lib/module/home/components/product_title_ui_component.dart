@@ -31,16 +31,17 @@ class ProductTitleUIComponent {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _onQuantityChange(
-            onTap: () => viewModel.updateQuantity(cartState.cartItems, false),
+            onTap: () {},
+            // onTap: () => viewModel.updateQuantity(cartState.cartItems, false),
             icon: Icons.remove),
-        AppText(viewModel
-                .getCartItemByProductId(cartState.cartItems)
-                ?.itemQuantity
-                .toString() ??
-            ''),
-        _onQuantityChange(
-            onTap: () => viewModel.updateQuantity(cartState.cartItems, true),
-            icon: Icons.add)
+        // AppText(viewModel
+        //         .getCartItemByProductId(cartState.cartItems)
+        //         ?.itemQuantity
+        //         .toString() ??
+        //     ''),
+        // _onQuantityChange(
+        //     onTap: () => viewModel.updateQuantity(cartState.cartItems, true),
+        // icon: Icons.add)
       ],
     );
   }
