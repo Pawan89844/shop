@@ -13,6 +13,8 @@ import 'package:shop/routes/app_state.dart';
 import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/widgets/app_text.dart';
 
+import '../../../widgets/app_bold_text.dart';
+
 class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
 
@@ -49,9 +51,8 @@ class _ProductDetailsState extends State<ProductDetails> {
       actions: actions,
     );
 
-    return Consumer4<AppState, CartViewModel, ProductDetailsViewModel,
-        HomeViewModel>(
-      builder: (context, appState, cartState, viewModel, homeState, __) {
+    return Consumer3<AppState, CartViewModel, ProductDetailsViewModel>(
+      builder: (context, appState, cartState, viewModel, __) {
         if (viewModel.product == null) {
           return const Center(child: CircularProgressIndicator());
         } else {
@@ -78,8 +79,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: ListTile(
-                    // title:
-                    //     AppBoldText(viewModel.product?. as String),
+                    title: AppBoldText(viewModel.product!.prodName),
                     trailing:
                         _ProductTrailing(viewModel.product?.isInStock as bool),
                   ),
