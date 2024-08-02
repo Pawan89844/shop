@@ -19,7 +19,8 @@ class SearchView extends StatelessWidget {
     var appstate = Provider.of<AppState>(context);
     return ChangeNotifierProvider(
       create: (context) => SearchViewModel(),
-      child: Consumer<SearchViewModel>(builder: (context, vm, _) {
+      child: Consumer3<SearchViewModel, HomeViewModel, AppState>(
+          builder: (context, vm, hvm, appstate, _) {
         return Scaffold(
           appBar: PreferredSize(
             preferredSize:
@@ -42,9 +43,9 @@ class SearchView extends StatelessWidget {
                     final prod = vm.history[i];
                     return ListTile(
                       onTap: () => NavigateTo(appstate)
-                          .productDetailsPage(prod.id as String, context),
-                      title: AppText(prod.tittle),
-                      leading: Image.network(prod.productImage),
+                          .productDetailsPage(prod.prodId, context),
+                      title: AppText(prod.prodName),
+                      leading: Image.network(prod.prodImage),
                     );
                   },
                   separatorBuilder: (context, index) => const Divider(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/constants/app_string.dart';
 import 'package:shop/routes/navigate_page.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/routes/app_state.dart';
@@ -42,9 +43,12 @@ class ProductGrid extends StatelessWidget {
                       const BorderRadius.vertical(top: Radius.circular(15)),
                   child: provider.appProducts == null
                       ? const Center(child: CircularProgressIndicator())
-                      : Image.network(
-                          provider.appProducts!.message[i].prodImage,
-                          isAntiAlias: true),
+                      : Hero(
+                          tag: provider.appProducts!.message[i].prodImage,
+                          child: Image.network(
+                              provider.appProducts!.message[i].prodImage,
+                              isAntiAlias: true),
+                        ),
                 ),
               ),
             ),

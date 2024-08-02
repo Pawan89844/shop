@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shop/module/home/view%20model/product_details_view_model.dart';
 import 'package:shop/module/search/repository/search_repository.dart';
 
-import '../../../data/model/products_model.dart';
+import '../../home/model/data/products_model.dart';
 
 class SearchViewModel extends ChangeNotifier {
   final TextEditingController searchController = TextEditingController();

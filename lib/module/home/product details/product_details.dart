@@ -49,8 +49,9 @@ class _ProductDetailsState extends State<ProductDetails> {
       actions: actions,
     );
 
-    return Consumer3<AppState, CartViewModel, ProductDetailsViewModel>(
-      builder: (context, appState, cartState, viewModel, __) {
+    return Consumer4<AppState, CartViewModel, ProductDetailsViewModel,
+        HomeViewModel>(
+      builder: (context, appState, cartState, viewModel, homeState, __) {
         if (viewModel.product == null) {
           return const Center(child: CircularProgressIndicator());
         } else {
