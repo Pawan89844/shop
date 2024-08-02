@@ -1,4 +1,6 @@
 class ProductDetailsModel {
+  final String prodId;
+  final String prodName;
   final String description;
   final List<String> prodImages;
   final bool isInStock;
@@ -8,7 +10,9 @@ class ProductDetailsModel {
   final double price;
 
   ProductDetailsModel(
-      {required this.description,
+      {required this.prodId,
+      required this.prodName,
+      required this.description,
       required this.prodImages,
       required this.isInStock,
       required this.rating,
@@ -25,6 +29,8 @@ class ProductDetailsModel {
 
   factory ProductDetailsModel.fromJSON(Map<String, dynamic> json) {
     return ProductDetailsModel(
+        prodId: json['prodId'],
+        prodName: json['prodName'],
         description: json['description'],
         prodImages: _convertList(json, 'prodImages'),
         isInStock: json['isInStock'],
