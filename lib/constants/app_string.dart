@@ -43,4 +43,7 @@ class AppString {
 
   /// Image Paths
   static const String noInternetImgPath = 'assets/no_internet.png';
+
+  /// Tags
+  static const String heroImgTag = 'img';
 }
