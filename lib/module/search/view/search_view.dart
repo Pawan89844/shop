@@ -16,7 +16,7 @@ class SearchView extends StatelessWidget {
     final appBar = AppBar();
     var query = MediaQuery.paddingOf(context);
     var homeViweModel = Provider.of<HomeViewModel>(context);
-    var appstate = Provider.of<AppState>(context);
+    // var appstate = Provider.of<AppState>(context);
     return ChangeNotifierProvider(
       create: (context) => SearchViewModel(),
       child: Consumer3<SearchViewModel, HomeViewModel, AppState>(

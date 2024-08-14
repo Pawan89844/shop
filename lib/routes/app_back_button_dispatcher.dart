@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:shop/routes/app_route_delegates.dart';
 
@@ -7,7 +9,7 @@ class AppBackButtonDispatcher extends RootBackButtonDispatcher {
   AppBackButtonDispatcher(this._routeDelegates) : super();
 
   @override
-  Future<bool> didPopRoute() {
-    return _routeDelegates.popRoute();
+  Future<bool> didPopRoute() async {
+    return _routeDelegates.isPagePopped;
   }
 }

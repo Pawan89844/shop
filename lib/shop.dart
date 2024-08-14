@@ -44,7 +44,7 @@ mixin class _ShopMixin {
   final cartState = CartViewModel();
   final homeState = HomeViewModel();
   late AppRouteDelegates delegate;
-  late AppBackButtonDispatcher backButtonDispatcher;
+  AppBackButtonDispatcher? backButtonDispatcher;
   final parser = AppRouteInformationParser();
 
   Widget buildShopApp() => MultiProvider(

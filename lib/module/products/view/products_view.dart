@@ -16,6 +16,8 @@ class ProductsView extends StatelessWidget {
   const ProductsView({super.key});
   // final dummyProducts = DummyProducts();
 
+  
+
   @override
   Widget build(BuildContext context) {
     final appstate = Provider.of<AppState>(context);
