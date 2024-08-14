@@ -21,6 +21,8 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
 
   final AppState appState;
 
+  bool get isPagePopped => _popPage();
+
   @override
   final GlobalKey<NavigatorState> navigatorKey;
 
@@ -156,6 +158,16 @@ class AppRouteDelegates extends RouterDelegate<AppRoutes>
   void pop() {
     if (canPop()) {
       _removePage(pages.last);
+    }
+  }
+
+  bool _popPage() {
+    if (canPop()) {
+      _removePage(pages.last);
+      notifyListeners();
+      return true;
+    } else {
+      return false;
     }
   }
 
