@@ -36,6 +36,14 @@ class NotificationContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeVM = Provider.of<HomeViewModel>(context);
+    // return const Padding(
+    //   padding: EdgeInsets.all(12.0),
+    //   child: ListTile(
+    //     leading: CircleAvatar(),
+    //     title: AppBoldText('', fontSize: 18.0),
+    //     subtitle: AppText(''),
+    //   ),
+    // );
     return StreamBuilder<RemoteMessage>(
         stream: homeVM.notification.message.stream,
         builder: (context, snapshot) {

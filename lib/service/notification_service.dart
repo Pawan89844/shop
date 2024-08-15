@@ -11,8 +11,8 @@ class NotificationService implements PushNotification {
   final FlutterLocalNotificationsPlugin _localNotification =
       FlutterLocalNotificationsPlugin();
   int _notificationId = 1;
-  StreamController<RemoteMessage> message = StreamController<RemoteMessage>();
-
+  StreamController<RemoteMessage> message =
+      StreamController<RemoteMessage>.broadcast();
   static final NotificationService _instance = NotificationService._internal();
 
   factory NotificationService() => _instance;
@@ -44,7 +44,7 @@ class NotificationService implements PushNotification {
   /// This is the main function which takes the input from Firebase and forwards to local notification service.
   Future<void> _pushNotification(RemoteMessage msg) async {
     if (msg.notification != null) {
-      message.sink.add(msg);
+      message.add(msg);
       return await _showNotification(
           _notificationId++, msg.notification?.title, msg.notification?.body);
     }
